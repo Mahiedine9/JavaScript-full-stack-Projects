@@ -2,9 +2,14 @@ const http = require('http');
 
 const server = http.createServer(
 	(request, response) => {
-		response.writeHead(200, {"Content-Type": "text/plain"});
-		response.write('Premier minimal code');
-		response.end('bye');
+		const url = request.url;
+		let responseBuilder;
+        if (url === '/json') {
+            const jsonData = { message: 'Hello, JSON!' };
+            responseBuilder = new JsonResponseBuilder(request, response, 200, jsonData);
+        } else {
+            responseBuilder = new ResponseBuilder(request, response, 200, 'text/plain');
+    }
 	}
 );
 
