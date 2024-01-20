@@ -1,4 +1,4 @@
-import ResponseBuilder from "./ResponseBuilder"
+const ResponseBuilder = require('./ResponseBuilder');
 
 class JsonResponseBuilder extends ResponseBuilder{
 
@@ -10,24 +10,25 @@ class JsonResponseBuilder extends ResponseBuilder{
     handleRequest() {
         this.buildHeader();
         this.buildBody();
-        this.buildFooter(); 
-        this.sendResponse();   
+        this.response.end();
     }
 
     buildHeader() {
-        this.response.statusCode = this.statusCode;
-        this.response.setHeader('Content-Type', this.contentType);      
+        this.response.statusCode = 200;
+        this.response.setHeader('Content-Type', this.jsonData);      
     }
 
     buildBody(){
-        const params = this.url.searchParams;
+        const params = this.getUrl().searchParams;
         const data = {};
         params.forEach((value, key) => {
             data[key] = value;
         });
         data.date = new Date().toISOString();
-        this.response.write(JSON.stringify(responseData)); 
+        this.response.write(JSON.stringify(data)); 
     }
 
 
 }
+
+module.exports = JsonResponseBuilder;

@@ -1,3 +1,5 @@
+const ResponseBuilder = require('./ResponseBuilder');
+
 class HtmlResponseBuilder extends ResponseBuilder {
     constructor(request, response, statusCode, htmlContent) {
         super(request, response, statusCode, 'text/html');
@@ -8,7 +10,7 @@ class HtmlResponseBuilder extends ResponseBuilder {
         this.buildHeader();
         this.buildBody();
         this.buildFooter(); 
-        this.sendResponse();   
+        this.response.end();  
     }
 
     buildHeader() {
@@ -23,14 +25,14 @@ class HtmlResponseBuilder extends ResponseBuilder {
 
     buildBody(){
 
-        if (this.#url.pathname === '/first') {
+        if (this.getUrl().pathname === '/first') {
             this.response.write(`<h2>welcome to first</h2>`);
         }
 
-        else if (this.#url.pathname === '/second') {
+        else if (this.getUrl().pathname === '/second') {
             this.response.write(`<h2>welcome to second</h2>`);
         }
-        this.response.end();
+        
 
     }
 
@@ -43,3 +45,5 @@ class HtmlResponseBuilder extends ResponseBuilder {
     }
 
 }
+
+module.exports = HtmlResponseBuilder;

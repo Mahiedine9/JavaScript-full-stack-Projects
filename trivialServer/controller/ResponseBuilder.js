@@ -1,4 +1,4 @@
-export default class ResponseBuilder{
+class ResponseBuilder{
     #request; 
     #response;
     #url;
@@ -8,7 +8,7 @@ export default class ResponseBuilder{
     constructor(request, response, statusCode, contentType){
         this.#request = request;
         this.#response = response;
-        this.#statusCode = statusCode;
+        this.#statusCode = 200;
         this.#contentType = contentType;
         this.#url = new URL(request.url,`http://${request.headers.host}`);   
     }
@@ -35,4 +35,8 @@ export default class ResponseBuilder{
         this.response.end();
     }
 
+
+
 }
+
+module.exports = ResponseBuilder;
