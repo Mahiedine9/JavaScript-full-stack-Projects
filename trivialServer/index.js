@@ -17,9 +17,8 @@ const server = http.createServer((requete, reponse) => {
         const contenuHtml = '<h1>Bonjour, le Monde !</h1>';
         constructeurReponse = new HtmlResponseBuilder(requete, reponse, 200, contenuHtml);
     }else{
-        const contenuHtml = '<h1></h1>';
+        const contenuHtml = '<h1>err</h1>';
         constructeurReponse = new InvalideResponse(requete, reponse,404, contenuHtml);
-
     } 
 
     constructeurReponse.handleRequest();

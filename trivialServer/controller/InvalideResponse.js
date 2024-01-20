@@ -17,7 +17,7 @@ class InvalideResponse extends ResponseBuilder{
 
     buildHeader() {
         this.response.statusCode = this.getStatusCode();
-        this.response.setHeader( 'Content-Type' , this.htmlContent);
+        this.response.setHeader( 'Content-Type' , 'text/html');
         this.response.write('<html>');
         this.response.write('<head></head>');
         this.response.write('<body>');
