@@ -14,7 +14,7 @@ class JsonResponseBuilder extends ResponseBuilder{
     }
 
     buildHeader() {
-        this.response.statusCode = 200;
+        this.response.statusCode = this.getStatusCode();
         this.response.setHeader('Content-Type', this.jsonData);      
     }
 

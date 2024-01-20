@@ -8,7 +8,7 @@ class ResponseBuilder{
     constructor(request, response, statusCode, contentType){
         this.#request = request;
         this.#response = response;
-        this.#statusCode = 200;
+        this.#statusCode = statusCode;
         this.#contentType = contentType;
         this.#url = new URL(request.url,`http://${request.headers.host}`);   
     }
@@ -27,6 +27,10 @@ class ResponseBuilder{
     getUrl(){
         return this.#url;
     }
+
+    getStatusCode(){
+        return this.#statusCode;
+    } 
 
     sendResponse(){
         this.buildHeader();

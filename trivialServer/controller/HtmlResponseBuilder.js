@@ -14,7 +14,7 @@ class HtmlResponseBuilder extends ResponseBuilder {
     }
 
     buildHeader() {
-        this.response.statusCode = 200;
+        this.response.statusCode = this.getStatusCode();
         this.response.setHeader( 'Content-Type' , this.htmlContent);
         this.response.write('<html>');
         this.response.write('<head></head>');
@@ -23,18 +23,17 @@ class HtmlResponseBuilder extends ResponseBuilder {
     }
 
 
-    buildBody(){
-
-        if (this.getUrl().pathname === '/first') {
+    buildBody() {
+        const fullPath = this.getUrl().pathname;
+        
+        if (fullPath.startsWith('/html/first')) {
             this.response.write(`<h2>welcome to first</h2>`);
-        }
-
-        else if (this.getUrl().pathname === '/second') {
+        } else if (fullPath.startsWith('/html/second')) {
             this.response.write(`<h2>welcome to second</h2>`);
         }
-        
-
+    
     }
+    
 
     buildFooter(){
         
