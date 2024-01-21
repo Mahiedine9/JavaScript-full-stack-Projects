@@ -3,8 +3,7 @@ const ResponseBuilder = require('./ResponseBuilder');
 class JsonResponseBuilder extends ResponseBuilder{
 
     constructor(request, response, statusCode, jsonData){
-        super(request, response, statusCode, 'application/json');
-        this.jsonData = jsonData;
+        super(request, response, statusCode, jsonData);
     }
 
     handleRequest() {
@@ -14,8 +13,7 @@ class JsonResponseBuilder extends ResponseBuilder{
     }
 
     buildHeader() {
-        this.response.statusCode = this.getStatusCode();
-        this.response.setHeader('Content-Type', this.jsonData);      
+        super.buildHeader;      
     }
 
     buildBody(){

@@ -18,7 +18,8 @@ class ResponseBuilder{
     }
 
     buildHeader(){
-
+        this.response.statusCode = this.getStatusCode();
+        this.response.setHeader( 'Content-Type' , this.#contentType);
     }
 
     buildBody(){
@@ -30,13 +31,6 @@ class ResponseBuilder{
 
     getStatusCode(){
         return this.#statusCode;
-    } 
-
-    sendResponse(){
-        this.buildHeader();
-        this.buildBody();
-        this.buildFooter();
-        this.response.end();
     }
 
 

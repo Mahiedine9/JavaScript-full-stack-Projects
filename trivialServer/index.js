@@ -3,16 +3,18 @@ const HtmlResponseBuilder = require('./controller/HtmlResponseBuilder');
 const JsonResponseBuilder = require('./controller/JsonResponseBuilder');
 const ResponseBuilder = require('./controller/ResponseBuilder');
 const InvalideResponse = require('./controller/InvalideResponse');
-
+const JsonRandomResponse = require('./controller/JsonRandomResponse');
 
 const server = http.createServer((requete, reponse) => {
     const url = requete.url;
     let constructeurReponse;
 
     if (url.startsWith('/json')) {
-        const donneesJson = { message: 'Bonjour, JSON !' };
-        constructeurReponse = new JsonResponseBuilder(requete, reponse, 200, donneesJson);
-    } 
+        constructeurReponse = new JsonResponseBuilder(requete, reponse, 200, 'application/json');
+    }
+    else if (url.startsWith('/random')) {
+        constructeurReponse = new JsonRandomResponse(requete, reponse, 200, 'application/json');
+    }  
     else if (url.startsWith('/html')) {
         const contenuHtml = '<h1>Bonjour, le Monde !</h1>';
         constructeurReponse = new HtmlResponseBuilder(requete, reponse, 200, contenuHtml);
