@@ -17,7 +17,7 @@ const server = http.createServer((requete, reponse) => {
         constructeurReponse = new JsonRandomResponse(requete, reponse, 200, 'application/json');
     }
 
-    else if (url.startsWith('/html')) {
+    else if ((url == '/first') || (url == '/second')  ) {
         const contenuHtml = '<h1>Bonjour, le Monde !</h1>';
         constructeurReponse = new HtmlResponseBuilder(requete, reponse, 200, contenuHtml);
     }

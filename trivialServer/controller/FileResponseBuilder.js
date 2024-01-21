@@ -7,7 +7,10 @@ class FileResponseBuilder extends ResponseBuilder{
     }
 
     handleRequest() {
-        super.handleRequest();  
+        this.buildHeader();
+        this.buildBody();
+        this.buildFooter(); 
+        this.response.end();
     }
 
     buildHeader() {
