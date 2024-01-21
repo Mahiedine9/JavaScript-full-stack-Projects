@@ -1,17 +1,33 @@
 # Jsfs GROUPE 1  LW
 
+## Développeurs
 
-1. faites une divergence de ce projet pour le binôme.
-2. ajoutez votre binôme comme développeur
-3. ajoutez moi (Léopold Weinberg) comme développeur.
-4. pour chaque tp créer un nouveau dossier dans ce projet.
-5. n'oublier pas le `.gitignore`
-6. remiser `(git commit)` et pousser `(git push)` régulierement 
-7. avant de commencer une nouvelle séance n'oublier pas de récupérer la derniere version `(git pull)`
+Mahiedine Ferdjoukh
 
 
 
-# Jsfs
+## TP 1
+
+### présentation :
+
+Mise en place à la main, avec Node.js, d'un petit serveur web qui fournit des réponses simples pour 3 routes élémentaires.
+
+
+### Problèmes Rencontrés
+
+Aucun problème pour le moment.
+
+
+## TP 2
+
+### présentation :
+
+Première utilisation de socket.io avec mise à jour d'un graphique construit avec chart.js
+
+
+### Problèmes Rencontrés
+
+Aucun problème pour le moment.
 
 
 
