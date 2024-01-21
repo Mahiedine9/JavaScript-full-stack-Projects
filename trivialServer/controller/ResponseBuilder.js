@@ -23,8 +23,9 @@ class ResponseBuilder{
     }
 
     buildBody(){
-
     }
+
+    
     getUrl(){
         return this.#url;
     }
