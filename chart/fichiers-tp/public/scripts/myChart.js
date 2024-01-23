@@ -37,4 +37,14 @@ const myChart = new Chart(ctxt, {
 
   
 const socket = io();
-socket.emit('connection', { name : 'jin', age : '12' });
+socket.emit('connection',socket);
+socket.on('ping', id => {
+  pong(id);
+});
+
+function pong(pongId) {
+  console.log(`ping received from ${pongId}`);
+
+  //socket.emit('pong', socket.id);
+  console.log(`${socket.id}`);
+}

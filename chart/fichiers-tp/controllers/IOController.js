@@ -8,18 +8,26 @@ export default class IOController{
         this.#clients = new Map();  
     }
 
-    connection(socket, userName){
-        this.#clients.set(socket.id, userName);
+    connection(socket ){
+        this.#clients.set(socket.id, 'toto');
         this.registerSocket(socket);
+        socket.emit('ping', socket.id);
     } 
 
-    setupListeners(socket) {
-        socket.on( 'connection'  , user => this.connection(socket, user.name) );
+    setupListeners(io) {
+        io.on( 'connection'  , socket => this.connection(socket) );
+        io.on('pong', chaine => 
+            console.log(`received pong from ${chaine}`)
+        );
+
     }
 
     registerSocket(socket) {
         console.log(`new connection with id ${socket.id}`);
     }
+     
+
+
 
 
     
