@@ -48,3 +48,29 @@ socket.on('ping', (id) => {
 socket.on('number', (number) => {
   console.log(`received number ${number}` )
 })
+
+socket.on('donnee', (label, newData) => handleData(myChart, label, newData))
+
+
+
+function handleData(chart, label, newData){
+  addData(chart, label, newData);
+  removeData(chart);
+} 
+
+
+function addData(chart, label, newData) {
+  chart.data.labels.push(label);
+  chart.data.datasets.forEach((dataset) => {
+      dataset.data.push(newData);
+  });
+  chart.update();
+}
+
+function removeData(chart) {
+  chart.data.labels.pop();
+  chart.data.datasets.forEach((dataset) => {
+      dataset.data.pop();
+  });
+  chart.update();
+}
