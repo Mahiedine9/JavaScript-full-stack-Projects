@@ -38,39 +38,45 @@ const myChart = new Chart(ctxt, {
 
 const socket = io();
 socket.emit('connection',socket);
-socket.on('ping', (id) => {
-  console.log(`ping received from ${id}`);
-  
-  socket.emit('pong', socket.id);
-  console.log(`${socket.id}`);
+socket.on('ping', (usr) => {
+  console.log(`ping received from ${usr.id}`); 
+  //socket.emit('pong', socket.id);
+  console.log(`je suis le user avec l'ID suivant : ${socket.id}`);
 });
 
-socket.on('number', (number) => {
-  console.log(`received number ${number}` )
-})
-
-socket.on('donnee', (label, newData) => handleData(myChart, label, newData))
 
 
+socket.on('donnee', (newData) => handleData(myChart, newData))
 
-function handleData(chart, label, newData){
-  addData(chart, label, newData);
-  removeData(chart);
-} 
+function handleData(chart, newData) {
+  console.log(`received data : ${newData}`)
+  //removeData(chart);
+  addData(chart, newData);
+}
 
+function addData(chart, newData) {
+  const lastLabel = chart.data.labels[chart.data.labels.length - 1];
+  for (let i = chart.data.labels.length - 1; i > 0; i--) {
+    chart.data.labels[i] = chart.data.labels[i - 1];
+  }
+  chart.data.labels[0] = lastLabel;
 
-function addData(chart, label, newData) {
-  chart.data.labels.push(label);
   chart.data.datasets.forEach((dataset) => {
-      dataset.data.push(newData);
+    for (let i = dataset.data.length - 1; i > 0; i--) {
+      dataset.data[i] = dataset.data[i - 1];
+    }
+    dataset.data[0] = newData;
   });
+
   chart.update();
 }
+
+
 
 function removeData(chart) {
   chart.data.labels.pop();
   chart.data.datasets.forEach((dataset) => {
-      dataset.data.pop();
+    dataset.data.shift();
   });
   chart.update();
 }
