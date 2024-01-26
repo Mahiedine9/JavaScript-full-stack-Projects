@@ -16,24 +16,29 @@ export default class IOController{
     } 
     
     connection(socket){
+        const ioServer = this.#io;
         const timerId = setInterval(() => this.sendNumber(this.nombreAleatoire(2, 8)), 3000);
         this.#timersId.set(socket.id,timerId);
         this.#clients.set(socket.id, 'toto');
         this.registerSocket(socket);
-        this.#io.emit('ping', socket.id);
+        socket.emit('ping', { id: socket.id });
 
-        socket.on('disconnect', () => {
+        socket.on('pong', (clientSocketId) => {
+            console.log(`Received pong from ${clientSocketId}`);
+        });
+
+
+        ioServer.on('disconnect', () => {
             this.stopTimer(socket.id);
             this.#clients.delete(socket.id);
             console.log(`Client with ID ${socket.id} disconnected.`);
         });
+        
     } 
 
     setupListeners(ioServer) {
         ioServer.on( 'connection'  , (socket) => this.connection(socket));
-        ioServer.on('pong', chaine => 
-            console.log(`received pong from ${chaine}`)
-        );
+        
 
         
     }

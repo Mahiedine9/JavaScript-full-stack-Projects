@@ -38,9 +38,11 @@ const myChart = new Chart(ctxt, {
 
 const socket = io();
 socket.emit('connection',socket);
-socket.on('ping', (usr) => {
-  console.log(`ping received from ${usr.id}`); 
-  //socket.emit('pong', socket.id);
+
+
+socket.on('ping', (data) => {
+  console.log(`ping received from ${data.id}`);
+  socket.emit('pong', socket.id); // Envoyer 'pong' avec l'ID du socket côté client
   console.log(`je suis le user avec l'ID suivant : ${socket.id}`);
 });
 
@@ -50,7 +52,6 @@ socket.on('donnee', (newData) => handleData(myChart, newData))
 
 function handleData(chart, newData) {
   console.log(`received data : ${newData}`)
-  //removeData(chart);
   addData(chart, newData);
 }
 
@@ -73,10 +74,3 @@ function addData(chart, newData) {
 
 
 
-function removeData(chart) {
-  chart.data.labels.pop();
-  chart.data.datasets.forEach((dataset) => {
-    dataset.data.shift();
-  });
-  chart.update();
-}
