@@ -35,16 +35,16 @@ const myChart = new Chart(ctxt, {
     }
   });
 
-  
+
 const socket = io();
 socket.emit('connection',socket);
-socket.on('ping', id => {
-  pong(id);
+socket.on('ping', (id) => {
+  console.log(`ping received from ${id}`);
+  
+  socket.emit('pong', socket.id);
+  console.log(`${socket.id}`);
 });
 
-function pong(pongId) {
-  console.log(`ping received from ${pongId}`);
-
-  //socket.emit('pong', socket.id);
-  console.log(`${socket.id}`);
-}
+socket.on('number', (number) => {
+  console.log(`received number ${number}` )
+})
