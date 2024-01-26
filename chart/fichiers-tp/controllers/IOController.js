@@ -2,10 +2,13 @@ export default class IOController{
 
     #io;
     #clients;
+    #timersId;
+
     
     constructor(io){
         this.#io = io;
         this.#clients = new Map();  
+        this.#timersId = new Map(); 
     }
 
     getClients(){
@@ -13,9 +16,17 @@ export default class IOController{
     } 
     
     connection(socket){
+        const timerId = setInterval(() => this.sendNumber(this.nombreAleatoire(2, 8)), 3000);
+        this.#timersId.set(socket.id,timerId);
         this.#clients.set(socket.id, 'toto');
         this.registerSocket(socket);
         this.#io.emit('ping', socket.id);
+
+        socket.on('disconnect', () => {
+            this.stopTimer(socket.id);
+            this.#clients.delete(socket.id);
+            console.log(`Client with ID ${socket.id} disconnected.`);
+        });
     } 
 
     setupListeners(ioServer) {
@@ -23,7 +34,8 @@ export default class IOController{
         ioServer.on('pong', chaine => 
             console.log(`received pong from ${chaine}`)
         );
-        setInterval(() => this.sendNumber(this.nombreAleatoire(2, 8)), 2000);
+
+        
     }
 
     registerSocket(socket) {
@@ -40,6 +52,16 @@ export default class IOController{
 
     sendNumber(n){
         this.getIo().emit('donnee', n);
+        console.log(`the number ${n} send`);
+    }
+
+    stopTimer(socketId) {
+        const timerId = this.#timersId.get(socketId);
+        if (timerId) {
+            clearInterval(timerId);
+            this.#timersId.delete(socketId);
+            console.log(`Timer for client with ID ${socketId} stopped.`);
+        }
     }
 
 
