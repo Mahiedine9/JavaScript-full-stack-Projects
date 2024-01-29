@@ -37,10 +37,7 @@ export default class IOController{
     } 
 
     setupListeners(ioServer) {
-        ioServer.on( 'connection'  , (socket) => this.connection(socket));
-        
-
-        
+        ioServer.on( 'connection'  , (socket) => this.connection(socket));      
     }
 
     registerSocket(socket) {
