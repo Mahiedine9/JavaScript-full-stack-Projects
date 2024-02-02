@@ -13,20 +13,20 @@ module.exports = {
   mode : 'development',
 
   output: {
-    path: path.resolve(__dirname, '../public'),
+    path: path.resolve(__dirname, '../server/public'),
     filename: 'scripts/[name]-bundle.js'
   },
 
   plugins: [
     new HtmlWebpackPlugin({
         template: "./html/commissaire-priseur.html",
-        filename: "../public/commissaire-priseur.html",
+        filename: "../server/public/commissaire-priseur.html",
         chunks : ['commissaire-priseur']
     }),
 
     new HtmlWebpackPlugin({
       template: "./html/encherisseur.html",
-      filename: "../public/encherisseur.html",
+      filename: "../server/public/encherisseur.html",
       chunks : ['encherisseur']
     }),
 
