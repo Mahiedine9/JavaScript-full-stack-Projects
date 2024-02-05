@@ -1,11 +1,11 @@
 const http = require('http');
-const responseBuilder = require('./controllers/responseBuilder');
 const responseController = require('./controllers/responseController')
 
 
 const server = http.createServer((requete, reponse) => {
     const url = requete.url;
-    const constructeurReponse = new responseController(url, requete, reponse);;
+    console.log(`${url}`);
+    const constructeurReponse = new responseController(url, requete, reponse);
     constructeurReponse.handleRequest();   
 });
 

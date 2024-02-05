@@ -1,4 +1,4 @@
-class ResponseBuilder{
+class responseBuilder{
     #request; 
     #response;
     #url;
@@ -16,6 +16,7 @@ class ResponseBuilder{
     get response() {
         return this.#response;
     }
+    
 
     buildHeader(){
         this.response.statusCode = this.getStatusCode();
@@ -39,4 +40,4 @@ class ResponseBuilder{
 
 }
 
-module.exports = ResponseBuilder;
+module.exports = responseBuilder;

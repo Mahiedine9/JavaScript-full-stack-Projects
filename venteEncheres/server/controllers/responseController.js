@@ -1,5 +1,9 @@
 const about = require('./about');
 const InvalideResponse = require('./InvalideResponse');
+const auctioneer = require('./auctioneer');
+const home = require('./home');
+const bidder = require('./bidder');
+
 
 
 class responseController{
@@ -16,56 +20,33 @@ class responseController{
         this.#response = response;
     }
 
-
     handleRequest(){
+        if (this.#url == '/' ){
+            this.#responseBuilder = new home(this.#request, this.#response, 200, 'text/html');
+        } 
+
         if (this.#url == '/about') {
             this.#responseBuilder = new about(this.#request, this.#response, 200, 'text/html');
         }
 
-        if (this.#url == '/auctioneer ') {
+        else if (this.#url == '/auctioneer') {
             this.#responseBuilder = new auctioneer(this.#request, this.#response, 200, 'text/html');
         }
-        else{
-            const contenuHtml = '<h1>err</h1>';
-            this.#responseBuilder = new InvalideResponse(this.#request, this.#response,404, contenuHtml);
+
+        else if (this.#url == '/bidder') {
+            this.#responseBuilder = new bidder(this.#request, this.#response, 200, 'text/html');
         }
+        
+        else{
+            this.#responseBuilder = new InvalideResponse(this.#request, this.#response, 200, 'text/html');
+        } 
+
+        
+
+        
+        
 
         this.#responseBuilder.handleRequest();      
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 module.exports = responseController;
