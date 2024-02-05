@@ -22,7 +22,7 @@ class auctioneer extends responseBuilder{
 
 
     buildBody() {
-        const fullPath = '.server/public/commissaire-priseur.html';
+        const fullPath = './public/commissaire-priseur.html';
         try {
             const content = readFileSync(fullPath);
             this.response.write(content);

@@ -35,4 +35,4 @@ const server = http.createServer((requete, reponse) => {
 
 server.listen(8080, () => {
     console.log('Serveur démarré sur http://localhost:8080');
-});
+} );  

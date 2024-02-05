@@ -16,7 +16,7 @@ class home extends responseBuilder {
 
 
     buildBody() {
-        const fullPath = path.join(__dirname,'.', 'public','html', 'index.html');
+        const fullPath = './public/html/home.html';
         try {
             accessSync(fullPath);
             const content = readFileSync(fullPath);

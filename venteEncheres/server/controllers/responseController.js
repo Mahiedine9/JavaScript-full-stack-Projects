@@ -25,7 +25,7 @@ class responseController{
             this.#responseBuilder = new home(this.#request, this.#response, 200, 'text/html');
         } 
 
-        if (this.#url == '/about') {
+        else if (this.#url == '/about') {
             this.#responseBuilder = new about(this.#request, this.#response, 200, 'text/html');
         }
 
