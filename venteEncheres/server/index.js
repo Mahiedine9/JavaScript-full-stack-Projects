@@ -11,6 +11,7 @@ const server = http.createServer((requete, reponse) => {
     constructeurReponse.handleRequest();   
 });
 
+
 const io = new IOServer(server);
 const ioController = new IoController(io);
 ioController.setupListeners(io);
@@ -18,4 +19,6 @@ ioController.setupListeners(io);
 server.listen(8081, () => {
     console.log('Serveur démarré sur http://localhost:8080');
 });
+
+
 
