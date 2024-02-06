@@ -14,10 +14,10 @@ const server = http.createServer((requete, reponse) => {
 
 const io = new IOServer(server);
 const ioController = new IoController(io);
-ioController.setupListeners(io);
+ioController.setupListeners();
 
 server.listen(8081, () => {
-    console.log('Serveur démarré sur http://localhost:8080');
+    console.log('Serveur démarré sur http://localhost:8081');
 });
 
 

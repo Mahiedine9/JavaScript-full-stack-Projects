@@ -24,7 +24,7 @@ class about extends responseBuilder {
 
 
     buildBody() {
-        const fullPath = this.getUrl().pathname;
+        
         
         this.response.write(`<h2>version : 1.0.0</h2>`);
         this.response.write(`<h2>auteur : Mahiedine Ferdjoukh</h2>`);

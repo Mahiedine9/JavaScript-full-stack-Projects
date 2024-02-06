@@ -28,20 +28,20 @@ module.exports = {
 	       watch : true
       },
       host: 'localhost',
-      port : 8080,
+      port : 8081,
       open : true
   },
 
   module: {
     rules : [
-      /*{
+      {
         test: /\.(m?js*)/,
         exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader'
         }
       },
-      */
+
 
       {
         test: /\.css$/,
