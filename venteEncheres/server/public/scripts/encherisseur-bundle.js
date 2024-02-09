@@ -15,7 +15,7 @@
   \*********************************/
 /***/ (() => {
 
-eval("//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zY3JpcHRzL2VuY2hlcmlzc2V1ci5qcyIsIm5hbWVzIjpbXSwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsid2VicGFjazovL2NsaWVudC1hcHAvLi9zY3JpcHRzL2VuY2hlcmlzc2V1ci5qcz9iYzQ0Il0sInNvdXJjZXNDb250ZW50IjpbIiJdLCJtYXBwaW5ncyI6IiJ9\n//# sourceURL=webpack-internal:///./scripts/encherisseur.js\n");
+eval("const socket = io();\nsocket.emit('connection', socket);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zY3JpcHRzL2VuY2hlcmlzc2V1ci5qcyIsIm5hbWVzIjpbInNvY2tldCIsImlvIiwiZW1pdCJdLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vY2xpZW50LWFwcC8uL3NjcmlwdHMvZW5jaGVyaXNzZXVyLmpzP2JjNDQiXSwic291cmNlc0NvbnRlbnQiOlsiY29uc3Qgc29ja2V0ID0gaW8oKTtcbnNvY2tldC5lbWl0KCdjb25uZWN0aW9uJyxzb2NrZXQpOyJdLCJtYXBwaW5ncyI6IkFBQUEsTUFBTUEsTUFBTSxHQUFHQyxFQUFFLENBQUMsQ0FBQztBQUNuQkQsTUFBTSxDQUFDRSxJQUFJLENBQUMsWUFBWSxFQUFDRixNQUFNLENBQUMifQ==\n//# sourceURL=webpack-internal:///./scripts/encherisseur.js\n");
 
 /***/ })
 
