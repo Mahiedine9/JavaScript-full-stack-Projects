@@ -2,15 +2,18 @@ class IoController{
 
     #io;
     #clients;
+    #auctioneer;
+    #bidders;  
 
     
     constructor(io){
         this.#io = io;
+        this.#auctioneer = null;
+        this.#bidders = [];   
     }
     
     connection(socket){
-        const ioServer = this.#io;
-        this.registerSocket();
+        this.identifyClient(socket); 
 
         /*ioServer.on('disconnect', () => {
             console.log(`Client with ID ${socket.id} disconnected.`);
@@ -22,8 +25,24 @@ class IoController{
         this.#io.on( 'connection'  , (socket) => this.connection(socket));      
     }
 
-    registerSocket() {
-        console.log(`new connection with id`);
+    identifyClient(socket) {
+        socket.emit('identify');
+        socket.on('identify', (role) =>{
+            if (role === 'auctioneer'){
+                if (!this.#auctioneer) { 
+                    this.#auctioneer = socket;
+                    console.log(`New auctioneer connected with ID ${socket.id}`);
+                    socket.emit('youAreAuctioneer');
+                } else {
+                    socket.emit('alreadyAuctioneer');
+                }
+            }else if (role === 'bidder'){
+                this.#bidders.push(socket);
+                console.log('New bidder connected with ID ${socket.id}');
+            }  
+        })
+
+
     }
     
     getIo(){

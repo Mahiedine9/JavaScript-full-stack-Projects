@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html lang="en"><head><script defer src="scripts/commissaire-priseur-bundle.js"></script></head>
-   
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enchériseur</title>
+    <link rel="stylesheet" href="./public/style/commissaire.css">
+<script defer src="scripts/commissaire-priseur-bundle.js"></script></head>                   
 <body>
     <div class="container">
         <h1>Commissaire Priseur</h1>
+        <div class="error-message" id="error-message">Connexion Impossible, Un commissaire-priseur est déjà en ligne.</div>
+        <div class="valid-message" id="valid-message"> Vous etes le commissaire priseur ! </div>
         <div class="auction-controls">
             <button class="button start-auction">Start Auction</button>
             <div class="price-container">
@@ -22,12 +29,9 @@
         </div>
         <a href="/" class="return-link">Return to Homepage</a>
     </div>
-    <link href="public/style/commissaire.css" rel="stylesheet" type="text/css"/>
-    <script src="public/scripts/commissaire-priseur-bundle.js"></script> 
     <script src="/socket.io/socket.io.js"></script>
+    <script src="public/scripts/commissaire-priseur-bundle.js"></script> 
 
-    
     
 </body>
 </html>
-

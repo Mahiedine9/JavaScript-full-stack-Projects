@@ -15,7 +15,7 @@
   \*********************************/
 /***/ (() => {
 
-eval("const socket = io();\nsocket.emit('connection', socket);//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zY3JpcHRzL2VuY2hlcmlzc2V1ci5qcyIsIm5hbWVzIjpbInNvY2tldCIsImlvIiwiZW1pdCJdLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vY2xpZW50LWFwcC8uL3NjcmlwdHMvZW5jaGVyaXNzZXVyLmpzP2JjNDQiXSwic291cmNlc0NvbnRlbnQiOlsiY29uc3Qgc29ja2V0ID0gaW8oKTtcbnNvY2tldC5lbWl0KCdjb25uZWN0aW9uJyxzb2NrZXQpOyJdLCJtYXBwaW5ncyI6IkFBQUEsTUFBTUEsTUFBTSxHQUFHQyxFQUFFLENBQUMsQ0FBQztBQUNuQkQsTUFBTSxDQUFDRSxJQUFJLENBQUMsWUFBWSxFQUFDRixNQUFNLENBQUMifQ==\n//# sourceURL=webpack-internal:///./scripts/encherisseur.js\n");
+eval("const socket = io();\nsocket.emit('identify', 'bidder');\nsocket.on('identify', () => {\n  console.log('Identified as a bidder');\n});//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zY3JpcHRzL2VuY2hlcmlzc2V1ci5qcyIsIm5hbWVzIjpbInNvY2tldCIsImlvIiwiZW1pdCIsIm9uIiwiY29uc29sZSIsImxvZyJdLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vY2xpZW50LWFwcC8uL3NjcmlwdHMvZW5jaGVyaXNzZXVyLmpzP2JjNDQiXSwic291cmNlc0NvbnRlbnQiOlsiY29uc3Qgc29ja2V0ID0gaW8oKTtcblxuc29ja2V0LmVtaXQoJ2lkZW50aWZ5JywgJ2JpZGRlcicpOyBcblxuc29ja2V0Lm9uKCdpZGVudGlmeScsICgpID0+IHtcbiAgICBjb25zb2xlLmxvZygnSWRlbnRpZmllZCBhcyBhIGJpZGRlcicpO1xufSk7XG5cblxuIl0sIm1hcHBpbmdzIjoiQUFBQSxNQUFNQSxNQUFNLEdBQUdDLEVBQUUsQ0FBQyxDQUFDO0FBRW5CRCxNQUFNLENBQUNFLElBQUksQ0FBQyxVQUFVLEVBQUUsUUFBUSxDQUFDO0FBRWpDRixNQUFNLENBQUNHLEVBQUUsQ0FBQyxVQUFVLEVBQUUsTUFBTTtFQUN4QkMsT0FBTyxDQUFDQyxHQUFHLENBQUMsd0JBQXdCLENBQUM7QUFDekMsQ0FBQyxDQUFDIn0=\n//# sourceURL=webpack-internal:///./scripts/encherisseur.js\n");
 
 /***/ })
 
