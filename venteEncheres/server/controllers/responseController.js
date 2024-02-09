@@ -24,21 +24,22 @@ class responseController {
         const contentType = getContentTypeFrom(this.#url);
         
         if (this.#url == '/') {
-            this.#responseBuilder = new home(this.#request, this.#response, 200, 'text/html');
+            this.#responseBuilder = new home(this.#request, this.#response, 200, contentType);
         } else if (this.#url == '/about') {
-            this.#responseBuilder = new about(this.#request, this.#response, 200, 'text/html');
+            this.#responseBuilder = new about(this.#request, this.#response, 200, contentType);
         } else if (this.#url == '/auctioneer') {
-            this.#responseBuilder = new auctioneer(this.#request, this.#response, 200, 'text/html');
+            this.#responseBuilder = new auctioneer(this.#request, this.#response, 200, contentType);
         } else if (this.#url == '/bidder') {
-            this.#responseBuilder = new bidder(this.#request, this.#response, 200, 'text/html');
+            this.#responseBuilder = new bidder(this.#request, this.#response, 200, contentType);
         } else if (this.#url.startsWith('/public')) {
             
             this.#responseBuilder = new FileResponseBuilder(this.#request, this.#response, 200, contentType);
+
         } else if (this.#url.startsWith('/scripts')) {
             const newUrl = '/public' + this.#url;
             this.#responseBuilder = new FileResponseBuilder(this.#request, this.#response, 200, contentType);
         } else {
-            this.#responseBuilder = new InvalideResponse(this.#request, this.#response, 200, 'text/html');
+            this.#responseBuilder = new InvalideResponse(this.#request, this.#response, 200, contentType);
         }
 
         this.#responseBuilder.handleRequest();
