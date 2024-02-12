@@ -12,12 +12,12 @@ class IoController{
     }
     
     connection(socket){
-        this.identifyClient(socket);    
+        this.identifyClient(socket);
+        socket.on('auctionStarted', (item, price) => this.startAuction(item, price));        
     } 
 
     setupListeners() {
-        this.#io.on( 'connection'  , (socket) => this.connection(socket));
-        this.#io.on('auctionStarted', (item, price) => this.startAuction(item.value, price.value));    
+        this.#io.on( 'connection' , (socket) => this.connection(socket));  
     }
 
     identifyClient(socket) {
@@ -33,7 +33,7 @@ class IoController{
                 }
             }else if (role === 'bidder'){
                 this.#bidders.push(socket);
-                console.log('New bidder connected with ID ${socket.id}');
+                console.log( `New bidder connected with ID ${socket.id} `);
             }  
         })
         socket.on('disconnect', () => {
@@ -48,10 +48,8 @@ class IoController{
 
     startAuction(item, price){
         console.log(`enchere commencé, le prix est ${price} et la description est ${item}`);
-        this.#io.emit('startOk');
+        this.#io.emit('startOk', item, price);
     } 
-
-    
 
 } 
 

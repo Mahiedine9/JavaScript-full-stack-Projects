@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function startAuction(item, price) {
     console.log(`je suis dans la méthode start du client ${item.value}  ${price.value} `);
-    socket.emit('auctionStarted', item.value, price.value);
+    socket.emit('auctionStarted', item.value.trim(), price.value.trim());
 }
 
 
