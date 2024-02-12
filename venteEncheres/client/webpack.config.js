@@ -12,7 +12,6 @@ module.exports = {
     'commissaire-priseur': path.resolve(__dirname, 'scripts', 'commissaire-priseur.js'),
     'encherisseur' : path.resolve(__dirname, 'scripts', 'encherisseur.js')
   },
-  mode : 'development',
 
   output: {
     path: path.resolve(__dirname, '../server/public'),

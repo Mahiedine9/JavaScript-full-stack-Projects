@@ -21,5 +21,37 @@ socket.on('youAreAuctioneer', () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    const startAuctionButton = document.querySelector(".start-auction");
+    const auctionItemInput = document.getElementById("auction-item");
+    const startPriceInput = document.getElementById("start-price");
+
+    startAuctionButton.disabled = true;
+
+    function checkInputs() {
+        if (auctionItemInput.value.trim() !== "" && startPriceInput.value.trim() !== "") {
+            startAuctionButton.disabled = false;
+        } else {
+            startAuctionButton.disabled = true;
+        }
+    }
+
+    auctionItemInput.addEventListener("input", checkInputs);
+    startPriceInput.addEventListener("input", checkInputs);
+    startAuctionButton.addEventListener("click", () => startAuction(auctionItemInput, startPriceInput));
+});
+
+function startAuction(item, price) {
+    console.log(`je suis dans la méthode start du client ${item.value}  ${price.value} `);
+    socket.emit('auctionStarted', item.value, price.value);
+}
+
+
+
+ 
+
+
+
+
 
 

@@ -16,8 +16,8 @@ const io = new IOServer(server);
 const ioController = new IoController(io);
 ioController.setupListeners();
 
-server.listen(8081, () => {
-    console.log('Serveur démarré sur http://localhost:8081');
+server.listen(8080, () => {
+    console.log('Serveur démarré sur http://localhost:8080');
 });
 
 
