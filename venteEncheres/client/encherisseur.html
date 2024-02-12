@@ -10,20 +10,21 @@
     <div class="container">
         <h1>Enchériseur</h1>
         <div class="auction-info">
-            <h2>Enchère en cours</h2>
+            <div class="state" id="state">Enchère en attente de démarrage.</div>
             <div id="auction-details">
                 <p>Nom de l'objet: <span id="object-name">Objet</span></p>
                 <p>Prix actuel: <span id="current-price">100</span>€</p>
-                <p>Enchères possibles: <span id="possible-bids">5, 10, 100</span>€</p>
+                <p>Enchères possibles:</p>
+                <div id="possible-bids">
+                    <button class="bid-option" data-bid="5">5€</button>
+                    <button class="bid-option" data-bid="10">10€</button>
+                    <button class="bid-option" data-bid="100">100€</button>
+                </div>
             </div>
         </div>
         <a href="/" class="return-link">Retour à l'accueil</a>
     </div>
     <script src="./socket.io/socket.io.js"></script>
     <script src="public/scripts/encherisseur-bundle.js" type="module" defer></script>
-    
-    
 </body>
 </html>
-
-

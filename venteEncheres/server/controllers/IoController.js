@@ -2,18 +2,21 @@ class IoController{
 
     #io;
     #auctioneer;
-    #bidders;  
+    #bidders;
+    #alreadyAuction;  
 
     
     constructor(io){
         this.#io = io;
         this.#auctioneer = null;
         this.#bidders = [];   
+        this.#alreadyAuction = false;
     }
     
     connection(socket){
         this.identifyClient(socket);
-        socket.on('auctionStarted', (item, price) => this.startAuction(item, price));        
+        socket.on('auctionStarted', (item, price) => this.startAuction(item, price));
+        socket.on('stop', () => this.stopAuction());  
     } 
 
     setupListeners() {
@@ -24,7 +27,7 @@ class IoController{
         socket.emit('identify');
         socket.on('identify', (role) =>{
             if (role === 'auctioneer'){
-                if (!this.#auctioneer) { 
+                if (this.#auctioneer == null) { 
                     this.#auctioneer = socket;
                     console.log(`New auctioneer connected with ID ${socket.id}`);
                     socket.emit('youAreAuctioneer');
@@ -34,6 +37,9 @@ class IoController{
             }else if (role === 'bidder'){
                 this.#bidders.push(socket);
                 console.log( `New bidder connected with ID ${socket.id} `);
+                if (this.#alreadyAuction){
+                    socket.emit('alreadyAuction');
+                }
             }  
         })
         socket.on('disconnect', () => {
@@ -48,9 +54,20 @@ class IoController{
 
     startAuction(item, price){
         console.log(`enchere commencé, le prix est ${price} et la description est ${item}`);
-        this.#io.emit('startOk', item, price);
+        this.#io.emit('startData', item, price);
+        this.#alreadyAuction = true;   
     } 
 
-} 
+
+    stopAuction(){
+        if (this.#auctioneer) {
+            this.#auctioneer.broadcast.emit('stopAuction');
+        } else {
+            console.log("Auctioneer is not defined.");
+        }
+    }
+}
+
+
 
 module.exports = IoController;

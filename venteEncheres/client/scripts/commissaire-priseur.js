@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const startAuctionButton = document.querySelector(".start-auction");
     const auctionItemInput = document.getElementById("auction-item");
     const startPriceInput = document.getElementById("start-price");
-
+    const stopAuctionButton = document.querySelector(".stop-auction");
     startAuctionButton.disabled = true;
 
     function checkInputs() {
@@ -38,12 +38,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     auctionItemInput.addEventListener("input", checkInputs);
     startPriceInput.addEventListener("input", checkInputs);
-    startAuctionButton.addEventListener("click", () => startAuction(auctionItemInput, startPriceInput));
+    startAuctionButton.addEventListener("click", () => {
+        auctionStarted = true;
+        startAuctionButton.disabled = true;
+        auctionItemInput.disabled = true;
+        startPriceInput.disabled = true;
+        startAuction(auctionItemInput, startPriceInput);
+    });
+    stopAuctionButton.addEventListener("click", () => {
+        auctionStarted = false;
+        startAuctionButton.disabled = false;
+        auctionItemInput.disabled = false;
+        startPriceInput.disabled = false;
+        stopAuction();
+    });
 });
 
+
+
 function startAuction(item, price) {
-    console.log(`je suis dans la méthode start du client ${item.value}  ${price.value} `);
     socket.emit('auctionStarted', item.value.trim(), price.value.trim());
+}
+
+
+
+function stopAuction(){   
+    socket.emit('stop');
 }
 
 
