@@ -28,7 +28,7 @@ class IoController{
         socket.emit('identify');
         socket.on('identify', (role) =>{
             if (role === 'auctioneer'){
-                if (this.#auctioneer == null) { 
+                if (!(this.#auctioneer)) { 
                     this.#auctioneer = socket;
                     console.log(`New auctioneer connected with ID ${socket.id}`);
                     socket.emit('youAreAuctioneer');
@@ -61,11 +61,7 @@ class IoController{
 
 
     stopAuction(){
-        if (this.#auctioneer) {
-            this.#auctioneer.broadcast.emit('stopAuction');
-        } else {
-            console.log("Auctioneer is not defined.");
-        }
+        this.#io.emit('stopAuction');
     }
     
 

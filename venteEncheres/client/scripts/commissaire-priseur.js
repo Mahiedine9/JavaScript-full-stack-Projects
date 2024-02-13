@@ -27,6 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const startPriceInput = document.getElementById("start-price");
     const stopAuctionButton = document.querySelector(".stop-auction");
     startAuctionButton.disabled = true;
+    const currentPrice = document.getElementById("current-bid");
+    currentPrice.textContent = startPriceInput.value.trim(); 
 
     function checkInputs() {
         if (auctionItemInput.value.trim() !== "" && startPriceInput.value.trim() !== "") {
@@ -61,6 +63,9 @@ function startAuction(item, price) {
 }
 
 function stopAuction() {
+    const auctionItemInput = document.getElementById("auction-item");
+    const currentBid = document.getElementById('current-bid');
+    displayOfferMessage(`Fin de l/'enchére. un ${auctionItemInput.value} conclus a ${currentBid.textContent}$` );
     socket.emit('stop');
 }
 

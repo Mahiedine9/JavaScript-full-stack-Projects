@@ -37,8 +37,6 @@ function updatePrice(price) {
     currentPrice.textContent = currentPriceValue;
 }
 
-
-
 function updateState(message) {
     const state = document.getElementById("state");
     state.textContent = message;
