@@ -11,7 +11,7 @@ socket.on('offerReceived', (socketId, price) => {
     const message = `Offre reçue de ${socketId}, prix : ${price}`;
     displayOfferMessage(message);
     updateCurrentBid(price);
-    
+    socket.emit('currentBid', getCurrentBid());   
 });
 
 
@@ -76,6 +76,10 @@ function displayOfferMessage(message) {
     offerMessage.textContent = message;
 }
 
+function getCurrentBid(){
+    const currentBid = document.getElementById('current-bid');
+    return (parseInt(currentBid.textContent));
+}
 
 function updateCurrentBid(price) {
     const currentBid = document.getElementById('current-bid');

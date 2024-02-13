@@ -1,16 +1,21 @@
 const socket = io();
-
+disableBidButtons(true);
 socket.emit('identify', 'bidder');
 
 socket.on('identify', () => {
     console.log('Identified as a bidder');
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    updateState("Bienvenue");
+});
+
+
 socket.on('startData', (item, price) => auctionStarted(item, price));
 
 socket.on('stopAuction', () => {
     console.log(`Fin de l'enchère, merci pour votre participation.`);
-    updateState("Enchère en attente de démarrage.");
+    updateState("Enchère terminée, elle est remporté par une autre personne.");
     disableBidButtons(true);
 });
 
@@ -21,22 +26,24 @@ socket.on('alreadyAuction', () => {
 });
 
 
-socket.on('winner', () => {
+socket.on('winner', (price) => {
     const state = document.getElementById("state");
-    state.textContent = "Félicitations ! Vous avez remporté l'enchère.";
+    state.textContent = `Félicitations ! Vous avez remporté l'enchère a ${price}$`;
+    init();
+});
 
+function init(){
     const nameItem = document.getElementById("object-name");
     const currentPrice = document.getElementById("current-price");
     const bidButtons = document.querySelectorAll(".bid-option");
 
     nameItem.textContent = "Objet";
-    currentPrice.textContent = "100";
+    currentPrice.textContent = "-";
 
     bidButtons.forEach(button => {
         button.disabled = true;
     });
-});
-
+}
 
 
 
