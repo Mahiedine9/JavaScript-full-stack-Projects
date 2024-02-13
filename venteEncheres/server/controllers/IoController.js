@@ -16,7 +16,8 @@ class IoController{
     connection(socket){
         this.identifyClient(socket);
         socket.on('auctionStarted', (item, price) => this.startAuction(item, price));
-        socket.on('stop', () => this.stopAuction());  
+        socket.on('stop', () => this.stopAuction()); 
+        socket.on('placeBid', (price) => socket.broadcast.emit('offerReceived', socket.id, price)); 
     } 
 
     setupListeners() {
@@ -66,6 +67,8 @@ class IoController{
             console.log("Auctioneer is not defined.");
         }
     }
+    
+
 }
 
 

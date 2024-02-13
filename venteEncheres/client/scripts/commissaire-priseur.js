@@ -1,25 +1,25 @@
 const socket = io();
 
+socket.emit('identify', 'auctioneer');
 
-socket.emit('identify', 'auctioneer'); 
+// Écoute des événements 'identify', 'offerReceived' et 'alreadyAuctioneer'
 socket.on('identify', () => {
-    console.log('Identified as a auctioneer');
+    console.log('Identified as an auctioneer');
 });
 
+socket.on('offerReceived', (socketId, price) => {
+    console.log("je suis dans la on du commissaire priseur");
+    const message = `Offre reçue de ${socketId}, prix : ${price}`;
+    displayOfferMessage(message);
+    updateCurrentBid(price);
+});
 
-const errorMessage = document.getElementById('error-message');
-const auctionControls = document.querySelector('.auction-controls');
-const returnLink = document.querySelector('.return-link');
 socket.on('alreadyAuctioneer', () => {
+    console.log('Another auctioneer is already connected');
     errorMessage.style.display = 'block';
     auctionControls.style.display = 'none';
     returnLink.style.display = 'none';
 });
-const validMessage = document.getElementById('valid-message');
-socket.on('youAreAuctioneer', () => {
-    validMessage.style.display = 'block';
-});
-
 
 document.addEventListener("DOMContentLoaded", () => {
     const startAuctionButton = document.querySelector(".start-auction");
@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     auctionItemInput.addEventListener("input", checkInputs);
     startPriceInput.addEventListener("input", checkInputs);
+
     startAuctionButton.addEventListener("click", () => {
         auctionStarted = true;
         startAuctionButton.disabled = true;
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startPriceInput.disabled = true;
         startAuction(auctionItemInput, startPriceInput);
     });
+
     stopAuctionButton.addEventListener("click", () => {
         auctionStarted = false;
         startAuctionButton.disabled = false;
@@ -54,24 +56,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-
-
 function startAuction(item, price) {
     socket.emit('auctionStarted', item.value.trim(), price.value.trim());
 }
 
-
-
-function stopAuction(){   
+function stopAuction() {
     socket.emit('stop');
 }
 
+function displayOfferMessage(message) {
+    const offerMessage = document.getElementById('offer-message');
+    offerMessage.textContent = message;
+}
 
-
- 
-
-
-
-
-
-
+function updateCurrentBid(price) {
+    const currentBid = document.getElementById('current-bid');
+    currentBid.textContent = parseInt(currentBid.textContent) + parseInt(price);
+}

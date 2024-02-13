@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commissaire-priseur</title>
     <link rel="stylesheet" href="./public/style/commissaire.css">
-</head>                   
+</head>
 <body>
     <div class="container">
         <h1>Commissaire Priseur</h1>
@@ -24,12 +24,13 @@
                 <span class="current-bid-label">Montant actuel de l'enchère:</span>
                 <span id="current-bid" class="current-bid-value">100</span>
             </div>
+            <div id="offer-message"></div>
             <button class="button start-auction"><img src="public/images/start.png" alt="Start Auction"></button>
             <button class="button stop-auction"> <img src="public/images/stop.png" alt="Stop Auction"></button>
         </div>
         <a href="/" class="return-link">Retour à la page d'accueil</a>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="public/scripts/commissaire-priseur-bundle.js"></script> 
+    <script src="public/scripts/commissaire-priseur-bundle.js"></script>
 </body>
 </html>
