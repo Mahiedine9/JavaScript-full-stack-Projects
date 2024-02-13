@@ -3,7 +3,8 @@ class IoController{
     #io;
     #auctioneer;
     #bidders;
-    #alreadyAuction;  
+    #alreadyAuction;
+    #currentSocketOffer;  
 
     
     constructor(io){
@@ -11,13 +12,17 @@ class IoController{
         this.#auctioneer = null;
         this.#bidders = [];   
         this.#alreadyAuction = false;
+        this.#currentSocketOffer = null;
     }
     
     connection(socket){
         this.identifyClient(socket);
         socket.on('auctionStarted', (item, price) => this.startAuction(item, price));
         socket.on('stop', () => this.stopAuction()); 
-        socket.on('placeBid', (price) => socket.broadcast.emit('offerReceived', socket.id, price)); 
+        socket.on('placeBid', (price) => { 
+            socket.broadcast.emit('offerReceived', socket.id, price);
+            this.#currentSocketOffer = socket;
+        }); 
     } 
 
     setupListeners() {
@@ -61,7 +66,8 @@ class IoController{
 
 
     stopAuction(){
-        this.#io.emit('stopAuction');
+        this.#currentSocketOffer.emit('winner');
+        this.#currentSocketOffer.broadcast.emit('stopAuction');
     }
     
 

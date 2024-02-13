@@ -2,7 +2,6 @@ const socket = io();
 
 socket.emit('identify', 'auctioneer');
 
-// Écoute des événements 'identify', 'offerReceived' et 'alreadyAuctioneer'
 socket.on('identify', () => {
     console.log('Identified as an auctioneer');
 });
@@ -12,7 +11,10 @@ socket.on('offerReceived', (socketId, price) => {
     const message = `Offre reçue de ${socketId}, prix : ${price}`;
     displayOfferMessage(message);
     updateCurrentBid(price);
+    
 });
+
+
 
 socket.on('alreadyAuctioneer', () => {
     console.log('Another auctioneer is already connected');
@@ -65,7 +67,7 @@ function startAuction(item, price) {
 function stopAuction() {
     const auctionItemInput = document.getElementById("auction-item");
     const currentBid = document.getElementById('current-bid');
-    displayOfferMessage(`Fin de l/'enchére. un ${auctionItemInput.value} conclus a ${currentBid.textContent}$` );
+    displayOfferMessage(`Fin de lenchére. un ${auctionItemInput.value} conclus a ${currentBid.textContent}$` );
     socket.emit('stop');
 }
 
@@ -73,6 +75,7 @@ function displayOfferMessage(message) {
     const offerMessage = document.getElementById('offer-message');
     offerMessage.textContent = message;
 }
+
 
 function updateCurrentBid(price) {
     const currentBid = document.getElementById('current-bid');
