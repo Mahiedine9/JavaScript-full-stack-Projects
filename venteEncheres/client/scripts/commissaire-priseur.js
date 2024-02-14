@@ -23,6 +23,14 @@ socket.on('alreadyAuctioneer', () => {
     returnLink.style.display = 'none';
 });
 
+
+socket.on('bidderDisconnected', () => {
+    updateState(`Un encherisseur d'id a quitté l'enchére !`);
+});
+
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
     const startAuctionButton = document.querySelector(".start-auction");
     const auctionItemInput = document.getElementById("auction-item");

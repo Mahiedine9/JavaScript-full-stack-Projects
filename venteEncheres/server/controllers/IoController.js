@@ -36,6 +36,7 @@ class IoController{
         socket.emit('identify');
         socket.on('identify', (role) =>{
             if (role === 'auctioneer'){
+                this.disconnectAuctioneer(socket);
                 if (!(this.#auctioneer)) { 
                     this.#auctioneer = socket;
                     console.log(`New auctioneer connected with ID ${socket.id}`);
@@ -44,6 +45,7 @@ class IoController{
                     socket.emit('alreadyAuctioneer');
                 }
             }else if (role === 'bidder'){
+                this.disconnectBidder(socket);
                 this.#bidders.push(socket);
                 console.log( `New bidder connected with ID ${socket.id} `);
                 if (this.#alreadyAuction){
@@ -51,15 +53,28 @@ class IoController{
                 }
             }  
         })
-        socket.on('disconnect', () => {
-            console.log(`Client with ID ${socket.id} disconnected.`);
-            this.#auctioneer = null; 
-        });
+        
     }
     
     getIo(){
         return this.#io;
     } 
+
+    disconnectAuctioneer(socket){
+        socket.on('disconnect', () => {
+            this.#auctioneer = null;
+            socket.broadcast.emit('auctioneerDisconnected');
+        });      
+    }
+
+    disconnectBidder(socket){
+        socket.on('disconnect', () => {
+            socket.broadcast.emit('bidderDisconnected');
+        });
+
+    }
+
+
 
     startAuction(item, price){
         console.log(`enchere commencé, le prix est ${price} et la description est ${item}`);

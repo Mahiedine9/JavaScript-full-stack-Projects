@@ -32,6 +32,18 @@ socket.on('winner', (price) => {
     init();
 });
 
+socket.on('auctioneerDisconnected', () => {
+    updateState("Le commissaire priseur a quitté l'enchére !. Attendez une autre enchére.");
+    init();
+});
+
+
+socket.on('bidderDisconnected', () => {
+    updateState(`Un encherisseur a quitté l'enchére !`);
+});
+
+
+
 function init(){
     const nameItem = document.getElementById("object-name");
     const currentPrice = document.getElementById("current-price");
