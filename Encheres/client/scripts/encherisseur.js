@@ -89,7 +89,6 @@ function disableBidButtons(disabled) {
 }
 
 function offerReceived(price) {
-    console.log("je suis dans la methode offer du 2eme encherisseur");
     updateState(`nouvelle enchére de ${price}`);
     updatePrice(price);
 }
