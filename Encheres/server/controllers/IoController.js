@@ -36,8 +36,8 @@ class IoController{
         socket.emit('identify');
         socket.on('identify', (role) =>{
             if (role === 'auctioneer'){
-                this.disconnectAuctioneer(socket);
-                if (!(this.#auctioneer)) { 
+                this.disconnectClient(socket, role);
+                if (this.#auctioneer == null) { 
                     this.#auctioneer = socket;
                     console.log(`New auctioneer connected with ID ${socket.id}`);
                     socket.emit('youAreAuctioneer');
@@ -45,7 +45,7 @@ class IoController{
                     socket.emit('alreadyAuctioneer');
                 }
             }else if (role === 'bidder'){
-                this.disconnectBidder(socket);
+                this.disconnectClient(socket, role);
                 this.#bidders.push(socket);
                 console.log( `New bidder connected with ID ${socket.id} `);
                 if (this.#alreadyAuction){
@@ -60,26 +60,31 @@ class IoController{
         return this.#io;
     } 
 
-    disconnectAuctioneer(socket){
-        socket.on('disconnect', () => {
+
+    disconnectClient(socket, role) {
+    socket.on('disconnect', () => {
+        if (role === 'auctioneer') {
             this.#auctioneer = null;
             socket.broadcast.emit('auctioneerDisconnected');
-        });      
-    }
-
-    disconnectBidder(socket){
-        socket.on('disconnect', () => {
+        } else if (role === 'bidder') {
             socket.broadcast.emit('bidderDisconnected');
-        });
-
+        }
+     });
     }
+
+
+
 
 
 
     startAuction(item, price){
-        console.log(`enchere commencé, le prix est ${price} et la description est ${item}`);
-        this.#io.emit('startData', item, price);
-        this.#alreadyAuction = true;   
+        if (this.#bidders.length >= 0){
+            console.log(`enchere commencé, le prix est ${price} et la description est ${item}`);
+            this.#io.emit('startData', item, price);
+            this.#alreadyAuction = true; 
+        }
+        this.#auctioneer.emit('noBidder'); 
+          
     } 
 
 

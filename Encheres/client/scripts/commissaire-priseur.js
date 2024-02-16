@@ -18,9 +18,7 @@ socket.on('offerReceived', (socketId, price) => {
 
 socket.on('alreadyAuctioneer', () => {
     console.log('Another auctioneer is already connected');
-    errorMessage.style.display = 'block';
-    auctionControls.style.display = 'none';
-    returnLink.style.display = 'none';
+    errorMessage();
 });
 
 
@@ -28,14 +26,24 @@ socket.on('bidderDisconnected', () => {
     updateState(`Un encherisseur d'id a quitté l'enchére !`);
 });
 
+socket.on('noBidder', () => {
+    stopAuctionButton.disabled = true;
+    alert("Impossible de démarrer l'enchére, aucun encherisseur connecté");
+    updateButton(false);
+});
 
 
+let startAuctionButton;
+let auctionItemInput;
+let startPriceInput;
+let stopAuctionButton;
 
 document.addEventListener("DOMContentLoaded", () => {
-    const startAuctionButton = document.querySelector(".start-auction");
-    const auctionItemInput = document.getElementById("auction-item");
-    const startPriceInput = document.getElementById("start-price");
-    const stopAuctionButton = document.querySelector(".stop-auction");
+    startAuctionButton = document.querySelector(".start-auction");
+    auctionItemInput = document.getElementById("auction-item");
+    startPriceInput = document.getElementById("start-price");
+    stopAuctionButton = document.querySelector(".stop-auction");
+    stopAuctionButton.disabled = true;
     startAuctionButton.disabled = true;
     const currentPrice = document.getElementById("current-bid");
     currentPrice.textContent = startPriceInput.value.trim(); 
@@ -52,18 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
     startPriceInput.addEventListener("input", checkInputs);
 
     startAuctionButton.addEventListener("click", () => {
-        auctionStarted = true;
-        startAuctionButton.disabled = true;
-        auctionItemInput.disabled = true;
-        startPriceInput.disabled = true;
+        updateButton(true);
         startAuction(auctionItemInput, startPriceInput);
     });
 
     stopAuctionButton.addEventListener("click", () => {
-        auctionStarted = false;
-        startAuctionButton.disabled = false;
-        auctionItemInput.disabled = false;
-        startPriceInput.disabled = false;
+        updateButton(false);
         stopAuction();
     });
 });
@@ -93,3 +95,20 @@ function updateCurrentBid(price) {
     const currentBid = document.getElementById('current-bid');
     currentBid.textContent = parseInt(currentBid.textContent) + parseInt(price);
 }
+
+function updateButton(Bool){
+    auctionStarted = Bool;
+    startAuctionButton.disabled = Bool;
+    auctionItemInput.disabled = Bool;
+    startPriceInput.disabled = Bool;
+} 
+
+function errorMessage(){
+    const errorMessage = document.getElementById("error-message");
+    const auctionControls = document.querySelector(".auction-controls");
+    const returnLink = document.querySelector(".return-link");
+    errorMessage.style.display = 'block';
+    auctionControls.style.display = 'none';
+    returnLink.style.display = 'none';
+}
+
