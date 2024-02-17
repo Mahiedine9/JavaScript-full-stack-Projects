@@ -11,7 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-socket.on('startData', (item, price) => auctionStarted(item, price));
+socket.on('startData', (item, price) => {
+    auctionStarted(item, price);
+    hideAlreadyAuctionMessage();
+});
 
 socket.on('stopAuction', () => {
     console.log(`Fin de l'enchère, merci pour votre participation.`);
@@ -21,7 +24,8 @@ socket.on('stopAuction', () => {
 
 socket.on('alreadyAuction', () => {
     console.log(`Une enchère est déjà en cours, veuillez patienter ou revenir plus tard.`);
-    updateState("Une enchère est déjà en cours.");
+    showAlreadyAuctionMessage();
+    hideAuctionDetails();
     disableBidButtons(true);
 });
 
@@ -40,6 +44,18 @@ socket.on('auctioneerDisconnected', () => {
 
 socket.on('bidderDisconnected', () => {
     updateState(`Un encherisseur a quitté l'enchére !`);
+});
+
+socket.on('offerReceived', (socketId, price) => offerReceived(price));
+
+socket.on('ready', () => {
+    const auctionDetails = document.getElementById('auction-details');
+    auctionDetails.style.display = 'block';
+    const possibleBids = document.getElementById('possible-bids');
+    possibleBids.style.display = 'block';
+    const returnLink = document.querySelector('.return-link');
+    returnLink.style.display = 'block';
+
 });
 
 
@@ -105,4 +121,26 @@ bidButtons.forEach(button => {
     });
 });
 
-socket.on('offerReceived', (socketId, price) => offerReceived(price));
+
+function hideAuctionDetails() {
+    const auctionDetails = document.getElementById('auction-details');
+    auctionDetails.style.display = 'none';
+    const possibleBids = document.getElementById('possible-bids');
+    possibleBids.style.display = 'none';
+    const returnLink = document.querySelector('.return-link');
+    returnLink.style.display = 'none';
+}
+
+function showAlreadyAuctionMessage() {
+    const alreadyAuctionMessage = document.getElementById('already-auction-message');
+    alreadyAuctionMessage.style.display = 'block';
+}
+
+function hideAlreadyAuctionMessage() {
+    const alreadyAuctionMessage = document.getElementById('already-auction-message');
+    alreadyAuctionMessage.style.display = 'none';
+}
+
+
+
+

@@ -14,7 +14,9 @@ socket.on('offerReceived', (socketId, price) => {
     socket.emit('currentBid', getCurrentBid());   
 });
 
-
+socket.on('startData', (a, b) => {
+    stopAuctionButton.disabled = false;
+} );
 
 socket.on('alreadyAuctioneer', () => {
     console.log('Another auctioneer is already connected');
@@ -32,6 +34,8 @@ socket.on('noBidder', () => {
     updateButton(false);
 });
 
+socket.on('stopAuctionNoOffer', () => stopAuctionNoOffer());
+
 
 let startAuctionButton;
 let auctionItemInput;
@@ -43,11 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
     auctionItemInput = document.getElementById("auction-item");
     startPriceInput = document.getElementById("start-price");
     stopAuctionButton = document.querySelector(".stop-auction");
+    auctionItemInput.value = "";
     stopAuctionButton.disabled = true;
     startAuctionButton.disabled = true;
     const currentPrice = document.getElementById("current-bid");
     currentPrice.textContent = startPriceInput.value.trim(); 
-
+    
     function checkInputs() {
         if (auctionItemInput.value.trim() !== "" && startPriceInput.value.trim() !== "") {
             startAuctionButton.disabled = false;
@@ -71,18 +76,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function startAuction(item, price) {
+    hideMessageOffer();
     socket.emit('auctionStarted', item.value.trim(), price.value.trim());
+}
+
+function stopAuctionNoOffer() {
+    const auctionItemInput = document.getElementById("auction-item");
+    const currentBid = document.getElementById('current-bid');
+    displayOfferMessage(`Fin de lenchére. aucune offre recu`);
+    socket.emit('stop');
 }
 
 function stopAuction() {
     const auctionItemInput = document.getElementById("auction-item");
     const currentBid = document.getElementById('current-bid');
-    displayOfferMessage(`Fin de lenchére. un ${auctionItemInput.value} conclus a ${currentBid.textContent}$` );
+    displayOfferMessage(`Fin de lenchére. un ${auctionItemInput.value} conclus a ${currentBid.textContent}$`);
     socket.emit('stop');
+}
+
+function hideMessageOffer() {
+    const message = document.getElementById('offer-message');
+    message.style.display = 'none';
+    
 }
 
 function displayOfferMessage(message) {
     const offerMessage = document.getElementById('offer-message');
+    offerMessage.style.display = 'block';
     offerMessage.textContent = message;
 }
 
@@ -109,6 +129,5 @@ function errorMessage(){
     const returnLink = document.querySelector(".return-link");
     errorMessage.style.display = 'block';
     auctionControls.style.display = 'none';
-    returnLink.style.display = 'none';
 }
 
