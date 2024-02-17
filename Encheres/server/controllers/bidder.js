@@ -36,7 +36,6 @@ class bidder extends responseBuilder{
     buildFooter(){
         
         this.response.write(`<footer>`);
-        this.response.write(`<p>Date et heure de construction : ${new Date().toLocaleString()}</p>`); 
         this.response.write(`</footer>`);
         this.response.write('</body>');
         this.response.write('</html>');

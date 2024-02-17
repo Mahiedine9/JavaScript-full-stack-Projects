@@ -47,7 +47,36 @@ Ce projet vise à créer une application de vente aux enchères en utilisant Nod
 
 - Communication en Temps Réel : Socket.io est utilisé pour permettre la communication bidirectionnelle entre le serveur et les clients, avec des émissions de type "ping" et "donnee".
 
-### problémes rencontrés : 
+### Fonctionnalités
+
+- **Commissaire-priseur :**
+  - Lancer une nouvelle enchère en spécifiant l'objet et le prix initial.
+  - Arrêter une enchère en cours.
+  - Visualiser les offres en temps réel.
+
+- **Enchérisseur :**
+  - Participer à une enchère en cours en plaçant des offres.
+  - Recevoir des notifications en temps réel sur le déroulement de l'enchère.
+  - Visualiser les détails de l'enchère en cours.
+
+## Technologies utilisées
+
+- **Socket.IO :** Pour la communication en temps réel entre le serveur et les clients.
+- **HTML/CSS/JavaScript :** Pour la structure, le style et le comportement de l'application web.
+- **Node.js :** Pour exécuter le serveur côté backend.
+
+
+## Comment utiliser
+
+1. Cloner ce dépôt sur votre machine locale.
+2. Allez dans le dossier du projet Encheres/ .
+3. Assurez-vous d'avoir Node.js installé sur votre machine.
+4. Installez les dépendances dans server/ et client/ avec `npm install`.
+5. Exécuter webpack dans le dossier client/ avec `npm run build`.    
+6. Lancez le serveur dans le dossier server/ avec `node index.js`.
+7. Accédez à l'application dans votre navigateur en ouvrant `http://localhost:8080`.
+
+
 
 
 
