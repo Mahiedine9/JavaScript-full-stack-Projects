@@ -64,7 +64,7 @@ Ce projet vise à créer une application de vente aux enchères en utilisant Nod
 - **Socket.IO :** Pour la communication en temps réel entre le serveur et les clients.
 - **HTML/CSS/JavaScript :** Pour la structure, le style et le comportement de l'application web.
 - **Node.js :** Pour exécuter le serveur côté backend.
-
+- **Webpack :** Pour la gestion des modules JavaScript et la création de bundles.
 
 ## Comment utiliser
 
