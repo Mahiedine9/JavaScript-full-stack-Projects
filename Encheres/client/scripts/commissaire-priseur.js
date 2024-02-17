@@ -7,8 +7,7 @@ socket.on('identify', () => {
 });
 
 socket.on('offerReceived', (socketId, price) => {
-    console.log("je suis dans la on du commissaire priseur");
-    const message = `Offre reçue de ${socketId}, prix : ${price}`;
+    const message = `Offre reçue de ${socketId}, prix : ${price}$`;
     displayOfferMessage(message);
     updateCurrentBid(price);
     socket.emit('currentBid', getCurrentBid());   
@@ -25,7 +24,7 @@ socket.on('alreadyAuctioneer', () => {
 
 
 socket.on('bidderDisconnected', () => {
-    updateState(`Un encherisseur d'id a quitté l'enchére !`);
+    updateState(`Un encherisseur a quitté l'enchére !`);
 });
 
 socket.on('noBidder', () => {

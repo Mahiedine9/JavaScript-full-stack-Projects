@@ -105,7 +105,7 @@ function disableBidButtons(disabled) {
 }
 
 function offerReceived(price) {
-    updateState(`nouvelle enchére de ${price}`);
+    updateState(`nouvelle enchére de ${price}$`);
     updatePrice(price);
 }
 
@@ -116,7 +116,7 @@ bidButtons.forEach(button => {
         const bidPrice = button.dataset.bid;
         console.log(`Prix d'enchère sélectionné : ${bidPrice}`);
         socket.emit('placeBid', bidPrice);
-        updateState(`Vous avez fait une offre de ${bidPrice} !`);
+        updateState(`Vous avez fait une offre de ${bidPrice}$ !`);
         updatePrice(bidPrice);
     });
 });
