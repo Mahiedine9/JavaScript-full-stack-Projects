@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var jsonRouter = require('./routes/json');
+var taskRouter = require('./routes/task.js');
 
 const error = require('./middlewares/error.middleware');
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/json', jsonRouter);
+app.use('/task', taskRouter);
 
 
 // catch 404 and forward to error handler

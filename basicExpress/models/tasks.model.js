@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const tasksSchema = new mongoose.Schema({
-    description :{type : String, required : true,ObjectId } ,      
+    description :{type : String, unique : true} ,      
     urgency : {type : Number,
                 min : 1, 
                 max : 5, 
@@ -19,6 +19,12 @@ const tasksSchema = new mongoose.Schema({
             } 
 });
 
-const Task = mongoose.model('Task', tasksSchema);
+module.exports = tasksSchema;
 
-module.exports = Task;
+
+const dbConnection = require('../controllers/db.controller');
+const Tasks = dbConnection.model('Task',tasksSchema,'tasks');
+
+
+
+module.exports.model = Tasks;
