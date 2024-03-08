@@ -9,6 +9,8 @@ var jsonRouter = require('./routes/json');
 
 const error = require('./middlewares/error.middleware');
 
+const dbConnection = require('./controllers/db.controller.js');
+
 
 var app = express();
 

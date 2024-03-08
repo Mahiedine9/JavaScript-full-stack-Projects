@@ -29,3 +29,17 @@ module.exports.second =
       res.sendFile('second.html', options);
 }
 
+module.exports.todo = 
+   (_,res) =>  {
+      const options = {                                          
+                     root : 'public',
+                     headers: {     
+                        'Content-Type': 'text/html',
+                        'x-timestamp': Date.now(),
+                        'x-sent': true
+                     }
+                  };
+      res.sendFile('todo.html', options);
+}
+
+
