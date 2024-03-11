@@ -12,3 +12,15 @@ module.exports.newTask = async (req, res, _) => {
     const createdTask = await Task.create(newTaskData);
     res.status(200).json(createdTask);
 } 
+
+module.exports.delete  =
+    async (req, res) => {
+    const deletedTask = await Task.findByIdAndDelete(req.params.some_task_id);
+    if (!deletedTask) {
+        return res.status(404).json({ message: "Tâche introuvable" });
+    }
+
+    res.status(200).json({ message: "Tâche supprimée avec succès", deletedTask });
+
+    
+} 
