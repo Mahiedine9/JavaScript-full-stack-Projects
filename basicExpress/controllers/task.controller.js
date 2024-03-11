@@ -21,6 +21,16 @@ module.exports.delete  =
     }
 
     res.status(200).json({ message: "Tâche supprimée avec succès", deletedTask });
+   
+}
 
-    
-} 
+module.exports.create = async (req, res) => {
+    const { description, urgency } = req.body;
+
+    try {
+        const createdTask = await Task.create({ description, urgency });
+        res.status(201).json({ message: "Tâche créée avec succès", task: createdTask });
+    } catch (error) {
+        res.status(500).json({ message: "Erreur lors de la création de la tâche", error });
+    }
+}
