@@ -1,0 +1,21 @@
+const DB_HOST = '127.0.0.1';
+const DB_PORT = 27017;
+const DB_NAME = 'spectacleBase';
+const DB_URI = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`
+
+module.exports = {
+  DB_HOST : DB_HOST,
+  DB_PORT : DB_PORT,
+  DB_NAME : DB_NAME,
+  DB_URI : DB_URI
+}
+
+
+
+const dbConnection = require('../controllers/db.controller');
+const Spectacle = dbConnection.model('Spectacle',spectacleSchema,'spectacle');
+
+
+
+module.exports.model = Spectacle;
+
