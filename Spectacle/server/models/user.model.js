@@ -1,10 +1,22 @@
 const mongoose = require('mongoose');
 
 
-const user = new mongoose.Schema({
-    nom : {type : String, unique : true}, 
+const userSchema = new mongoose.Schema({
+    name : String,
+    login : {
+              type : String,
+              required : true,
+              unique : true
+            },
+    password : {
+                type : String,
+                required : true
+               },
+    admin : {
+              type : Boolean,
+              default: false
+            }, 
     ticket : String
-
 });
 
 
@@ -15,7 +27,7 @@ module.exports = userSchema;
 
 
 const dbConnection = require('../controllers/db.controller');
-const Users = dbConnection.model('User',tasksSchema,'users');
+const Users = dbConnection.model('User',userSchema,'users');
 
 
 
