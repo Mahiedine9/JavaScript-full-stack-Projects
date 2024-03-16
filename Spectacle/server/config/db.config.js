@@ -12,10 +12,3 @@ module.exports = {
 
 
 
-const dbConnection = require('../controllers/db.controller');
-const Spectacle = dbConnection.model('Spectacle',spectacleSchema,'spectacle');
-
-
-
-module.exports.model = Spectacle;
-

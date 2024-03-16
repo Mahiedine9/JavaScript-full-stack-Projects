@@ -8,5 +8,17 @@ const user = new mongoose.Schema({
 });
 
 
+
+
+
 module.exports = userSchema;
+
+
+const dbConnection = require('../controllers/db.controller');
+const Users = dbConnection.model('User',tasksSchema,'users');
+
+
+
+module.exports.model = Users;
+
 

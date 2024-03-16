@@ -17,18 +17,12 @@ module.exports = spectacleSchema;
 
 
 
+const dbConnection = require('../controllers/db.controller');
+const Spectacles = dbConnection.model('Spectacle',tasksSchema,'spectacles');
 
 
 
-
-
-
-
-
-
-
-
-
+module.exports.model = Spectacles;
 
 
 
