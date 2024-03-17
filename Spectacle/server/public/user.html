@@ -2,30 +2,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
   <meta charset="UTF-8"/>
-  <title>user profile</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"/>
-
-  <script src="../javascripts/user.client.js" defer="true"/></script>
+  <title>Profil utilisateur</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/user.css"/>
+  <script src="../javascripts/user.client.js" defer="true"></script>
 </head>
 
 <body>
-  <h1>Information utilisateur</h1>
+  <h1>Profil utilisateur</h1>
   <p>
-    utilisateur connecté
+    Utilisateur connecté
   </p>
 
-  <div id="userdata">
-    <div>
-      <label for="username">Nom
-        <input type="text" placeholder="nom" value="" id="username"/>
-      </label>
-    </div>
+  <!-- Zone pour afficher les tickets déjà achetés -->
+  <div id="tickets">
+    <h2>Tickets achetés</h2>
+    <ul id="ticket-list">
+      <!-- Les tickets achetés seront affichés ici -->
+    </ul>
   </div>
+
+  <!-- Zone pour afficher les spectacles disponibles -->
+  <div id="spectacles">
+    <h2>Spectacles disponibles</h2>
+    <ul id="spectacle-list">
+      <!-- Les spectacles disponibles seront affichés ici -->
+      <li>
+        <span>Description du spectacle</span>
+        <span>Nombre de places disponibles</span>
+        <button class="buy-ticket">Acheter un ticket</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Bouton de déconnexion -->
   <div id="controls">
-    <button id="update">update</button>
-    <button id="logout">logout</button>
+    <button id="logout">Déconnexion</button>
   </div>
-
 </body>
-
 </html>

@@ -19,7 +19,12 @@ const login = async () => {
   const response = await fetch(`/access/login`, requestOptions);
   if (response.ok) {
     const loggedUser = await response.json();
-    window.location.href = '/user';
+    if (loggedUser.isAdmin){
+      window.location.href = '/admin'; 
+    } 
+    else {
+      window.location.href = '/user'; 
+    }
   }
   else {
     const error = await response.json();

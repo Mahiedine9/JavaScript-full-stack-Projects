@@ -8,7 +8,9 @@ module.exports.me =
     console.log(user);
     console.log(req.userId);
     res.status(200).json({ name : user.name });
-  }
+}
+
+
 
 module.exports.update =
   async (req,res) => {

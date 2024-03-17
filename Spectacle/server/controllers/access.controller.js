@@ -50,12 +50,14 @@ const login = async (req, res) => {
       const validPassword = await bcrypt.compare(req.body.password, user.password);
       if (!validPassword) // wrong password
         return res.status(401).json({ message : 'mot de passe incorrect.'});
+      
 
+      const isAdmin = user.login === 'admin';
       // create and send token
-      const token = jwt.sign({id: user._id}, jwtConfig.SECRET_TOKEN, {expiresIn : '60s'} );
+      const token = jwt.sign({id: user._id, isAdmin}, jwtConfig.SECRET_TOKEN, {expiresIn : '60s'} );
       console.log(`login : ${token}`);
       res.cookie('token', token,  { maxAge : 60000, httpOnly: true, sameSite : 'strict' })  // secure : true (avec https)
-      res.status(200).json({ message : 'utilisateur connecté' });
+      res.status(200).json({ message : 'utilisateur connecté', isAdmin });
     }
     else { // unknown login
       console.log(`user ${req.body.login} inconnu`);

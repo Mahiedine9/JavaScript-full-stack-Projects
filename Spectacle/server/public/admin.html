@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Gestion des spectacles</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/admin.css"/>
+
+  <script src="../javascripts/spectacle.client.js" defer="true"></script>
+</head>
+
+<body>
+  <h1>Gestion des spectacles</h1>
+
+  <div id="logout-container">
+    <button id="logout">Déconnexion</button>
+  </div>
+
+  <div id="create-spectacle">
+    <h2>Créer un nouveau spectacle</h2>
+    <div>
+      <label for="description">Description :
+        <input type="text" placeholder="Description" id="description"/>
+      </label>
+    </div>
+    <div>
+      <label for="seats">Nombre de places :
+        <input type="number" placeholder="Nombre de places" id="seats"/>
+      </label>
+    </div>
+    <div>
+      <button id="submit-spectacle">Créer le spectacle</button>
+    </div>
+  </div>
+
+  <div id="spectacles-list">
+    <h2>Liste des spectacles</h2>
+    <ul id="spectacles"></ul>
+  </div>
+
+</body>
+</html>
