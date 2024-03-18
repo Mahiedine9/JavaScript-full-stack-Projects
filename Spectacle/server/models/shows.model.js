@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const spectacleSchema = new mongoose.Schema({
+const showsSchema = new mongoose.Schema({
     description :{type : String, unique : true} ,      
     places : {type : Number,
                 min : 1, 
@@ -13,16 +13,16 @@ const spectacleSchema = new mongoose.Schema({
 
 
 
-module.exports = spectacleSchema;
+module.exports = showsSchema;
 
 
 
 const dbConnection = require('../controllers/db.controller');
-const Spectacles = dbConnection.model('Spectacle',tasksSchema,'spectacles');
+const shows = dbConnection.model('Shows',showsSchema,'shows');
 
 
 
-module.exports.model = Spectacles;
+module.exports.model = shows;
 
 
 

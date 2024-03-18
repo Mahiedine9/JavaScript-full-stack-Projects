@@ -11,6 +11,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var accessRouter = require('./routes/access');
 var adminRouter = require('./routes/admin');
+var showsRouter = require('./routes/shows');
+
 
 var app = express();
 
@@ -30,7 +32,7 @@ app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/access', accessRouter);
 app.use('/admin', adminRouter);
-
+app.use('/shows', showsRouter);
 
 app.use(errorMiddleware);
 
