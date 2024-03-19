@@ -1,6 +1,6 @@
 const User = require('../models/user.model').model;
 const Shows = require('../models/shows.model').model;
-
+const Ticket = require('../models/user.model').ticketModel;
 
 module.exports.home = (_,res) => res.redirect('/user.html');
 
@@ -25,25 +25,54 @@ module.exports.update =
 }
 
  
+
 module.exports.takeTicket = async (req, res) => {
   try {
-      const show = await Shows.findById(req.params.showId);
+    const user = await User.findById(req.params.userId);
 
-      if (!show) {
-          return res.status(404).json({ message: "Spectacle non trouvé" });
-      }
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+      
+    }
 
-      if (show.places <= 0) {
-          return res.status(400).json({ message: "Plus de places disponibles pour ce spectacle" });
-      }
+    const show = await Shows.findById(req.params.showId);
 
-      show.places--;
+    if (!show) {
+      console.log("je suis la 2");
+      return res.status(404).json({ message: "Spectacle non trouvé" });
+    }
 
-      await show.save();
+    if (show.places <= 0) {
+      return res.status(400).json({ message: "Plus de places disponibles pour ce spectacle" });
+    }
 
-      res.status(200).json({ message: "Ticket réservé avec succès" });
+    show.places--;
+
+    const newTicket = new Ticket({ description: show.description });
+
+    user.tickets.push(newTicket);
+
+    await user.save();
+    await show.save();
+
+    res.status(200).json({ message: "Ticket réservé avec succès" });
   } catch (error) {
-      console.error("Erreur lors de la réservation du ticket :", error);
-      res.status(500).json({ message: "Une erreur s'est produite lors de la réservation du ticket" });
+    console.error("Erreur lors de la réservation du ticket :", error);
+    res.status(500).json({ message: "Une erreur s'est produite lors de la réservation du ticket" });
   }
+}
+
+
+module.exports.tickets = async (req, res) => {
+  try {
+    const userId = req.params.user_id; 
+    const user = await User.findById(userId).populate('tickets');
+    if (!user) {
+        return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
+    res.status(200).json(user.tickets);
+} catch (error) {
+    res.status(500).json({ message: error.message });
+}
+
 }

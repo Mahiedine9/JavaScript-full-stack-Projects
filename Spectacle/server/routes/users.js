@@ -7,8 +7,12 @@ const authMiddleware = require('../middlewares/authentication.middleware');
 const userController = require('../controllers/user.controller');
 
 router.get('/', userController.home );
-router.get('/me', authMiddleware.validToken, userController.me );
+router.get('/me', authMiddleware.validToken, userController.me);
 router.put('/me', authMiddleware.validToken, userController.update);
-router.put('/takeTicket/:showId', userController.takeTicket);
+router.post('/takeTicket/:showId/:userId', userController.takeTicket);
+router.get('/tickets/:user_id',authMiddleware.validToken, userController.tickets);
+
+
+
 
 module.exports = router;

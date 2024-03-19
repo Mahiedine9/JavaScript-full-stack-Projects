@@ -2,7 +2,7 @@
 
 
 const getShows = async () => {
-    const list = document.getElementById('spectacles-list');
+    const list = document.getElementById('spectacles');
     list.textContent = '';
     const requestOptions = {
        method: 'GET'
