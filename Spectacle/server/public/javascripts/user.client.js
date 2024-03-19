@@ -74,7 +74,7 @@ const addTicket = async (showId) => {
     const response = await fetch(`/user/me`, requestOptions);
     if (response.ok) {
       const userData = await response.json();
-      const userId = userData._id; 
+      const userId = userData.id; 
       const ticketResponse = await fetch(`/user/takeTicket/${showId}/${userId}`, { method: 'POST' }); 
       if (ticketResponse.ok) {
         const updatedTickets = await fetch(`/user/tickets/${userId}`, { method: 'GET' }); 

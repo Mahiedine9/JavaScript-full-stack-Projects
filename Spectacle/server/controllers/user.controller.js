@@ -9,8 +9,10 @@ module.exports.me =
     const user = await User.findById(req.userId);
     console.log(user);
     console.log(req.userId);
-    res.status(200).json({ name : user.name });
+    res.status(200).json({ name : user.name, id : user._id });
 }
+
+
 
 
 
@@ -57,6 +59,7 @@ module.exports.takeTicket = async (req, res) => {
 
     res.status(200).json({ message: "Ticket réservé avec succès" });
   } catch (error) {
+    console.log('je suis la 3')
     console.error("Erreur lors de la réservation du ticket :", error);
     res.status(500).json({ message: "Une erreur s'est produite lors de la réservation du ticket" });
   }
