@@ -24,8 +24,7 @@ const validToken = (req, res , next) => {
 }
 
 
-// il serait plus pertinent de mettre le statut "admin" dans le payload du token JWT
-// cela est plus conforme à l'approche "stateless" de JWT
+
 const adminAuthentication = async (req, res, next) => {
   const userId = req.userId;
   const user = await User.findById(userId);
