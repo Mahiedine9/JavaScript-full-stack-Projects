@@ -10,12 +10,14 @@ module.exports = {
 
   entry: {                         
     'admin': path.resolve(__dirname, 'scripts', 'admin.client.js'),
-    'user' : path.resolve(__dirname, 'scripts', 'user.client.js')
+    'user' : path.resolve(__dirname, 'scripts', 'user.client.js'),
+    'login': path.resolve(__dirname, 'scripts', 'login.client.js'),
+    'register': path.resolve(__dirname, 'scripts', 'register.client.js')
   },
 
   output: {
     path: path.resolve(__dirname, '../server/public'),
-    filename: 'scripts/[name]-bundle.js'
+    filename: 'javascripts/[name]-bundle.js'
   },
 
   mode :  (PRODUCTION ? 'production' : 'development'),
@@ -23,7 +25,7 @@ module.exports = {
 
   devServer: {
       static: {
-	       publicPath: path.resolve(__dirname, 'dist'),
+	       publicPath: path.resolve(__dirname, 'public'),
 	       watch : true
       },
       host: 'localhost',
@@ -95,7 +97,7 @@ module.exports = {
         {
           context: path.resolve(__dirname, 'style'),
           from: '**/*',
-	  to:   'style/[name][ext]',
+	  to:   'stylesheets/[name][ext]',
           noErrorOnMissing: true
 	},
       ]

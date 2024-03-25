@@ -1,5 +1,7 @@
 
-const setup = () => {
+const setup = async () => {
+  const userData = await getUser();
+  document.querySelector('#user h1').textContent = `Bonjour ${userData.name} !`;
   getShows();
   displayTickets();
   document.getElementById('logout').addEventListener('click', logout);
