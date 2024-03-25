@@ -1,0 +1,85 @@
+/* Reset des styles par défaut */
+html, body, ul, li, button, input {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  
+  h1, h2 {
+    margin-bottom: 20px;
+  }
+  
+  #logout-container {
+    margin-bottom: 20px;
+  }
+  
+  #logout {
+    background-color: #ff4d4d;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #logout:hover {
+    background-color: #cc0000;
+  }
+  
+  #create-spectacle {
+    margin-bottom: 40px;
+  }
+  
+  #create-spectacle h2 {
+    margin-bottom: 10px;
+  }
+  
+  #create-spectacle div {
+    margin-bottom: 15px;
+  }
+  
+  #create-spectacle label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  #create-spectacle input[type="text"],
+  #create-spectacle input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #submit-spectacle {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #submit-spectacle:hover {
+    background-color: #45a049;
+  }
+  
+  #spectacles-list {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+  }
+  
+  #spectacles {
+    list-style-type: none;
+  }
+  
+  #spectacles li {
+    margin-bottom: 10px;
+  }
+  
+  /* Autres styles spécifiques à votre mise en page peuvent être ajoutés ici */
+  

@@ -26,6 +26,30 @@ module.exports.update =
     res.status(200).json({ name : user.name , message : 'mise à jour réussie'});
 }
 
+
+module.exports.removeTicket = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    } 
+
+    user.tickets = user.tickets.filter(ticket => ticket._id.toString() !== req.params.ticketId);
+
+    await user.save();
+
+    await Ticket.findByIdAndDelete(req.params.ticketId);
+
+    res.status(200).json({ message: "Ticket supprimé avec succès" });
+
+  } catch (error) {
+    console.error("Erreur lors de la suppression du ticket :", error);
+    res.status(500).json({ message: "Une erreur s'est produite lors de la suppression du ticket" });
+  } 
+} 
+
+
  
 
 module.exports.takeTicket = async (req, res) => {
@@ -59,7 +83,6 @@ module.exports.takeTicket = async (req, res) => {
 
     res.status(200).json({ message: "Ticket réservé avec succès" });
   } catch (error) {
-    console.log('je suis la 3')
     console.error("Erreur lors de la réservation du ticket :", error);
     res.status(500).json({ message: "Une erreur s'est produite lors de la réservation du ticket" });
   }
