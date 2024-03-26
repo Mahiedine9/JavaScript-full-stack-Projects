@@ -1,14 +1,15 @@
 const socket = io();
 
+//socket.emit('identify', userData);
+//socket.on('userData', (user) => {
+//  document.querySelector('#user h1').textContent = `Bonjour ${user.name} !`;
+//});
+
 const setup = async () => {
   const userData = await getUser();
-  socket.emit('identify', userData);
-  socket.on('userData', (user) => {
-    document.querySelector('#user h1').textContent = `Bonjour ${user.name} !`;
-    displayTickets(user.id);
-  });
+  document.querySelector('#user h1').textContent = `Bonjour ${userData.name} !`;
   getShows();
-
+  displayTickets(userData.id);
   document.getElementById('logout').addEventListener('click', logout);
 
 }
@@ -20,6 +21,7 @@ window.addEventListener('DOMContentLoaded', setup);
 const getUser2 = async () => {
   try {
     if (userData) {
+
       // Si les données de l'utilisateur existent déjà, retournez-les directement
       return userData;
     } else {
@@ -61,6 +63,7 @@ const getUser = async () => {
 
 const getTickets = async (userId) => {
   try {
+    console.log(`${userId}`);
     const response = await fetch(`/user/tickets/${userId}`, { method: 'GET' });
     if (response.ok) {
       const tickets = await response.json();
@@ -72,6 +75,7 @@ const getTickets = async (userId) => {
     console.error(`Erreur : ${error.message}`);
   }
 };
+
 
 
 const addTicket = async (showId) => {
@@ -119,29 +123,42 @@ const displayTickets = async (userId) => {
   ticketList.textContent = '';
 
   try {
-    const tickets = await getTickets(userId);
+    const user = await getUser();
+    const tickets = await getTickets(user.id);
+
+    const ticketCounts = {};
 
     tickets.forEach((ticket) => {
-      const ticketElem = document.createElement('li');
-      ticketElem.textContent = ticket.description;
-      ticketList.appendChild(ticketElem);
-      const delButton = document.createElement('button');
-      delButton.textContent = 'buy -1';
-      delButton.className = 'del-button';
-      delButton.addEventListener('click', () => {
-        removeTicket(ticket._id);
-        displayTickets(userId);
-      });
-      ticketElem.appendChild(delButton);
-
+      if (ticketCounts.hasOwnProperty(ticket.description)) {
+        ticketCounts[ticket.description].push(ticket); 
+      } else {
+        ticketCounts[ticket.description] = [ticket]; 
+      }
     });
 
+    for (const [description, ticketArray] of Object.entries(ticketCounts)) {
+      const ticketElem = document.createElement('li');
+      ticketElem.textContent = `${description} (${ticketArray.length})`; 
 
+      ticketArray.forEach(ticket => {
+        const delButton = document.createElement('button');
+        delButton.textContent = 'Supprimer';
+        delButton.addEventListener('click', () => {
+          removeTicket(ticket._id);
+          displayTickets(user.id);
+        });
+        ticketElem.appendChild(delButton);
+      });
+
+      ticketList.appendChild(ticketElem);
+    }
 
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
   }
 };
+
+
 
 
 
@@ -154,23 +171,24 @@ const getShows = async () => {
   };
   const response = await fetch('/shows/', requestOptions);
   const shows = await response.json();
-
   shows.forEach(show => list.appendChild(buildShow(show)));
 }
 
 
-const buildShow = show => {
+const buildShow =  show => {
+  const user = getUser();
   const elem = document.createElement('tr');
   elem.className = 'show';
   elem.appendChild(buildTD(show.description, 'description'));
   elem.appendChild(buildTD(show.places, 'seats'));
+
 
   const buyButton = document.createElement('button');
   buyButton.textContent = 'buy +1';
   buyButton.className = 'buy-button';
   buyButton.addEventListener('click', () => {
     addTicket(show._id);
-    displayTickets();
+    displayTickets(user.id);
   });
 
   elem.appendChild(buyButton);
@@ -196,6 +214,7 @@ const logout = async () => {
     window.location.href = '/';
   }
 }
+
 
 const handleError = error => {
   if (error.redirectTo)
