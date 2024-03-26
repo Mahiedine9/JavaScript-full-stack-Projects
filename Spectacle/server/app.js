@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 const errorMiddleware = require('./middlewares/error.middleware');
 
 
@@ -33,6 +34,9 @@ app.use('/user', usersRouter);
 app.use('/access', accessRouter);
 app.use('/admin', adminRouter);
 app.use('/shows', showsRouter);
+app.use('/socket.io', express.static(path.join(__dirname, 'node_modules/socket.io/client-dist')));
+
+
 
 app.use(errorMiddleware);
 

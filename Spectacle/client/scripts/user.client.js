@@ -1,21 +1,51 @@
+const socket = io();
 
 const setup = async () => {
   const userData = await getUser();
-  document.querySelector('#user h1').textContent = `Bonjour ${userData.name} !`;
+  socket.emit('identify', userData);
+  socket.on('userData', (user) => {
+    document.querySelector('#user h1').textContent = `Bonjour ${user.name} !`;
+    displayTickets(user.id);
+  });
   getShows();
-  displayTickets();
+
   document.getElementById('logout').addEventListener('click', logout);
+
 }
 
 
 
 window.addEventListener('DOMContentLoaded', setup);
 
+const getUser2 = async () => {
+  try {
+    if (userData) {
+      // Si les données de l'utilisateur existent déjà, retournez-les directement
+      return userData;
+    } else {
+      // Sinon, effectuez une requête pour récupérer les données de l'utilisateur
+      const requestOptions = {
+        method: 'GET',
+      };
+      const response = await fetch(`/user/me`, requestOptions);
+      if (response.ok) {
+        userData = await response.json();
+        return userData;
+      } else {
+        throw new Error('Erreur lors de la récupération des informations de lutilisateur');
+      }
+    }
+  } catch (error) {
+    console.error(`Erreur : ${error.message}`);
+  }
+};
+
+
 
 const getUser = async () => {
   try {
     const requestOptions = {
-      method: 'GET', 
+      method: 'GET',
     };
     const response = await fetch(`/user/me`, requestOptions);
     if (response.ok) {
@@ -31,7 +61,7 @@ const getUser = async () => {
 
 const getTickets = async (userId) => {
   try {
-    const response = await fetch(`/user/tickets/${userId}`, { method: 'GET' }); 
+    const response = await fetch(`/user/tickets/${userId}`, { method: 'GET' });
     if (response.ok) {
       const tickets = await response.json();
       return tickets;
@@ -47,16 +77,17 @@ const getTickets = async (userId) => {
 const addTicket = async (showId) => {
   try {
     const userData = await getUser();
-    const userId = userData.id; 
-    const ticketResponse = await fetch(`/user/takeTicket/${showId}/${userId}`, { method: 'POST' }); 
+    const userId = userData.id;
+    const ticketResponse = await fetch(`/user/takeTicket/${showId}/${userId}`, { method: 'POST' });
     if (ticketResponse.ok) {
-      return true; 
+      return true;
     } else {
       throw new Error('Erreur lors de la prise de ticket');
     }
+
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
-    return false; 
+    return false;
   }
 };
 
@@ -65,32 +96,30 @@ const removeTicket = async (ticketId) => {
   try {
     console.log('Ticket ID:', ticketId);
     const userData = await getUser();
-    const userId = userData.id; 
+    const userId = userData.id;
     const requestOptions = {
-      method: 'DELETE', 
+      method: 'DELETE',
     };
-    const response = await fetch(`/user/removeTicket/${ticketId}/${userId}`, requestOptions); 
+    const response = await fetch(`/user/removeTicket/${ticketId}/${userId}`, requestOptions);
     if (response.ok) {
-      return true; 
+      return true;
     } else {
       throw new Error('Erreur lors de la suppression du ticket');
     }
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
-    return false; 
+    return false;
   }
 };
 
 
 
-const displayTickets = async () => {
+const displayTickets = async (userId) => {
   const ticketList = document.getElementById('ticket-list');
-  ticketList.textContent = ''; 
+  ticketList.textContent = '';
 
   try {
-    const userData = await getUser(); 
-    const userId = userData.id; 
-    const tickets = await getTickets(userId); 
+    const tickets = await getTickets(userId);
 
     tickets.forEach((ticket) => {
       const ticketElem = document.createElement('li');
@@ -99,16 +128,16 @@ const displayTickets = async () => {
       const delButton = document.createElement('button');
       delButton.textContent = 'buy -1';
       delButton.className = 'del-button';
-      delButton.addEventListener('click', () =>{
-      removeTicket(ticket._id);
-      displayTickets();
+      delButton.addEventListener('click', () => {
+        removeTicket(ticket._id);
+        displayTickets(userId);
       });
       ticketElem.appendChild(delButton);
 
     });
-     
-  
-  
+
+
+
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
   }
@@ -121,7 +150,7 @@ const getShows = async () => {
   const list = document.getElementById('spectacle-list');
   list.textContent = '';
   const requestOptions = {
-     method: 'GET'
+    method: 'GET'
   };
   const response = await fetch('/shows/', requestOptions);
   const shows = await response.json();
@@ -139,10 +168,10 @@ const buildShow = show => {
   const buyButton = document.createElement('button');
   buyButton.textContent = 'buy +1';
   buyButton.className = 'buy-button';
-  buyButton.addEventListener('click', () =>{
+  buyButton.addEventListener('click', () => {
     addTicket(show._id);
     displayTickets();
-  }); 
+  });
 
   elem.appendChild(buyButton);
 
@@ -160,17 +189,17 @@ const buildTD = (content, className) => {
 
 const logout = async () => {
   const requestOptions = {
-                         method :'GET',
-                       };
+    method: 'GET',
+  };
   const response = await fetch(`/access/logout`, requestOptions);
   if (response.ok) {
-    window.location.href= '/';
+    window.location.href = '/';
   }
 }
 
 const handleError = error => {
   if (error.redirectTo)
-    window.location.href= error.redirectTo;
+    window.location.href = error.redirectTo;
   else
     console.log(`erreur : ${error.message}`);
 }

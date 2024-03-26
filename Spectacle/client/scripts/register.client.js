@@ -9,6 +9,7 @@ const setup = () => {
   document.getElementById('register').addEventListener('click', checkLoginAndRegister);
   document.getElementById('adminregister').addEventListener('click', adminRegister);
 }
+
 window.addEventListener('DOMContentLoaded', setup);
 
 const checkLoginAndRegister = () => {

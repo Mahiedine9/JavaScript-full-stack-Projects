@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const jwtConfig = require('../config/jwt.config');
 
 
-const registerForm = (_,res) => res.redirect('/register.html');
+const registerForm = (_,res) => res.redirect('/html/register.html');
 /*
 * crée l'entrée correspondant à l'utilisateur à partir des informations fournies
 * le mot de passe est crypté avant d'être stocké en base
@@ -36,11 +36,24 @@ const register = async (req, res) => {
 /*
 * fournit en résultat une vue qui gère le formulaire d'identification
 */
-const loginForm = (_,res) => res.redirect('/login.html'); 
+const loginForm = (_,res) =>  {
+  const options = {                                          
+                 root : 'public/html',
+                 headers: {     
+                    'Content-Type': 'text/html',
+                    'x-timestamp': Date.now(),
+                    'x-sent': true
+                 }
+               };
+  res.sendFile('login.html', options);
+}
+
 /*
 * cherche s'il existe un utilisateur correspondant aux identifiants/mot de passe fournis
 * si c'est le cas un jeton JWT est créé et renvoyé
 */
+
+
 const login = async (req, res) => {
   try {
     // check if user exist

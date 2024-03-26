@@ -9,7 +9,6 @@
     "build": "webpack",
     "watch": "webpack --watch",
     "dev-server": "webpack serve --open"
-    
   },
   "author": "Mahiedine Ferdjoukh",
   "license": "ISC",
@@ -28,6 +27,6 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "socket.io": "^4.7.4"
+    "socket.io": "^4.7.5"
   }
 }

@@ -8,6 +8,11 @@ var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
 
+
+
+
+
+
 /**
  * Get port from environment and store in Express.
  */
@@ -20,6 +25,15 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+
+var socketIo = require('socket.io');
+var io = socketIo(server);
+const IoController = require('../controllers/io.controller.js');
+
+
+const ioController = new IoController(io);
+ioController.setupListeners();
 
 /**
  * Listen on provided port, on all network interfaces.
