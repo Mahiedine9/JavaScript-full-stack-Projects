@@ -39,6 +39,17 @@ j'ai fait en sorte que quand un client recois une donnée alors il execute les f
 Ce projet vise à créer une application de vente aux enchères en utilisant Node.js pour le serveur, Socket.io pour la communication en temps réel, et Webpack pour la gestion des dépendances et la construction des fichiers côté client.
 
 
+## Comment utiliser
+
+1. Cloner ce dépôt sur votre machine locale.
+2. Allez dans le dossier du projet Encheres/ .
+3. Assurez-vous d'avoir Node.js installé sur votre machine.
+4. Installez les dépendances dans server/ et client/ avec `npm install`.
+5. Exécuter webpack dans le dossier client/ avec `npm run build`.    
+6. Lancez le serveur dans le dossier server/ avec `node index.js`.
+7. Accédez à l'application dans votre navigateur en ouvrant `http://localhost:8080`.
+
+
 ### structure du projet : 
 
 - Serveur Node.js : La logique du serveur est gérée par plusieurs classes dans le dossier controllers, chacune traitant des routes spécifiques.
@@ -66,15 +77,59 @@ Ce projet vise à créer une application de vente aux enchères en utilisant Nod
 - **Node.js :** Pour exécuter le serveur côté backend.
 - **Webpack :** Pour la gestion des modules JavaScript et la création de bundles.
 
-## Comment utiliser
+
+
+
+
+## projet2 Gestion des Spectacles
+
+application de gestion des spectacles ! Cette application vous permet de consulter les spectacles disponibles, de réserver des tickets pour ces spectacles, et de visualiser vos réservations.
+
+### Fonctionnalités
+
+- Affichage de la liste des spectacles disponibles.
+- Ajout de réservations pour les spectacles sélectionnés.
+- Visualisation et suppression des réservations effectuées.
+
+### Comment utiliser
 
 1. Cloner ce dépôt sur votre machine locale.
-2. Allez dans le dossier du projet Encheres/ .
+2. Allez dans le dossier du projet /Spectacle .
 3. Assurez-vous d'avoir Node.js installé sur votre machine.
 4. Installez les dépendances dans server/ et client/ avec `npm install`.
 5. Exécuter webpack dans le dossier client/ avec `npm run build`.    
-6. Lancez le serveur dans le dossier server/ avec `node index.js`.
-7. Accédez à l'application dans votre navigateur en ouvrant `http://localhost:8080`.
+6. Lancez le serveur dans le dossier server/ avec `node bin/www`.
+7. Accédez à l'application dans votre navigateur en ouvrant `http://localhost:3000`.
+
+
+
+4. **Configurer la base de données MongoDB :**
+   - Assurez-vous d'avoir MongoDB installé sur votre machine.
+   - Créez une base de données MongoDB nommée "spectacleBase".
+   - Définissez les informations de connexion dans le fichier `config.js`.
+
+
+### Utilisation
+
+1. **Authentification :** Lorsque vous accédez à l'application, vous serez accueilli par une page de connexion. Connectez-vous en utilisant vos identifiants.
+
+2. **Affichage des spectacles :** Après connexion, la liste des spectacles disponibles sera affichée. Vous pouvez consulter les détails de chaque spectacle et choisir celui qui vous intéresse.
+
+3. **Ajout de réservations :** Pour réserver des tickets pour un spectacle, cliquez sur le bouton "Réserver" à côté du spectacle choisi.
+
+
+4. **Visualisation et suppression des réservations :** Vous pouvez visualiser vos réservations sur la page d'accueil après connexion. Chaque réservation est répertoriée avec les détails du spectacle correspondant. Pour supprimer une réservation, cliquez sur le bouton "Supprimer" à côté de la réservation.
+
+### Technologies Utilisées
+
+- **Node.js** : Plateforme de développement JavaScript côté serveur.
+- **Express.js** : Cadre d'application web pour Node.js.
+- **MongoDB** : Base de données NoSQL utilisée pour stocker les spectacles et les réservations.
+- **Mongoose** : Bibliothèque de modélisation d'objets MongoDB pour Node.js.
+- **Socket.IO** : Bibliothèque JavaScript pour la communication en temps réel entre le client et le serveur.
+
+
+
 
 
 
