@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const showsSchema = new mongoose.Schema({
-    description :{type : String, unique : true} ,      
+    description :{type : String} ,      
     places : {type : Number,
                 min : 1, 
                 max : 5000, 

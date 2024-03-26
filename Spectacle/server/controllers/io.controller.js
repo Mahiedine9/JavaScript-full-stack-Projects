@@ -10,11 +10,8 @@ class IoController {
     setupListeners() {
         this.#io.on('connection', (socket) => {
             console.log(`User connecté avec l'id : ${socket.id}`);
+            this.#users.set(socket.id);
             
-            socket.on('identify', (user) => {
-                this.#users.set(socket.id, user);
-                socket.emit('userData', user); // Envoyer les données utilisateur à l'utilisateur connecté
-            });
         });
     }
 
