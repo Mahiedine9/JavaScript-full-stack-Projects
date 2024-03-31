@@ -3,6 +3,7 @@ const socket = io();
 
 
 const setup = async () => {
+  socket.on('showDeleted', (showId) => deleteTicket(showId));
   try {
     const userData = await getUser();
     displayUser(userData);
@@ -11,8 +12,9 @@ const setup = async () => {
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
   }
-
 };
+
+
 
 const getUser = async () => {
   const response = await fetch(`/user/me`);
@@ -37,6 +39,7 @@ const addTicket = async (showId) => {
   if (!ticketResponse.ok) {
     throw new Error('Erreur lors de la prise de ticket');
   }
+  BuyTicket(showId);
   displayTickets();
 };
 
@@ -134,5 +137,30 @@ const handleError = error => {
     console.log(`erreur : ${error.message}`);
   }
 };
+
+
+function BuyTicket(showId){
+  socket.emit('buy', showId);
+}
+
+const deleteTicket = async (showId) => {
+  try {
+    const user = await getUser();
+    const tickets = await getTickets();
+    const ticket = tickets.find(ticket => ticket.showId === showId);
+    if (!ticket) return; 
+    await removeTicket(ticket._id);
+    await displayTickets(); 
+  } catch (error) {
+    console.error(`Erreur : ${error.message}`);
+  }
+};
+
+
+
+
+
+
+
 
 setup();

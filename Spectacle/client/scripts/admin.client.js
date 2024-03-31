@@ -1,8 +1,12 @@
 const socket = io();
 
-const setup = () => {
-  getShows();
 
+const setup = () => {
+  
+  socket.on('showBought', (showId) => {
+    updateShowAvailability(showId);
+  });
+  getShows();
 }
 
 
@@ -82,6 +86,8 @@ const deleteShow = async (showId) => {
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
   }
+
+  socket.emit('deleteShow', showId);
 };
 
 
@@ -100,5 +106,27 @@ const createButton = document.getElementById('submit-spectacle');
 createButton.addEventListener('click', createShow);
 const logoutButton = document.getElementById('logout');
 logoutButton.addEventListener('click', logout);
+
+
+
+
+
+
+const updateShowAvailability = (showId) => {
+  const showElement = document.getElementById(showId);
+  if (showElement) {
+    fetch(`/shows/${showId}`)
+      .then(response => response.json())
+      .then(show => {
+        const seatsElement = showElement.querySelector('.seats');
+        seatsElement.textContent = show.places;
+      })
+      
+      .catch(error => console.error(`Erreur : ${error.message}`));
+  }
+};
+
+
+
 
 setup();

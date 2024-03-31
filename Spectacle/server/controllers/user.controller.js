@@ -92,13 +92,16 @@ module.exports.takeTicket = async (req, res) => {
 module.exports.tickets = async (req, res) => {
   try {
     const userId = req.params.user_id; 
-    const user = await User.findById(userId).populate('tickets');
+    const user = await User.findById(userId);
     if (!user) {
         return res.status(404).json({ message: "Utilisateur non trouvé" });
     }
-    res.status(200).json(user.tickets);
+    const tickets = await user.tickets;
+    res.status(200).json(tickets);
 } catch (error) {
     res.status(500).json({ message: error.message });
 }
+
+
 
 }

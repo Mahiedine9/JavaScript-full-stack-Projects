@@ -1,3 +1,5 @@
+const socket = io();
+
 let userlogin;
 let userpassword;
 let username;

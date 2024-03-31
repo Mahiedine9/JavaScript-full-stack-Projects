@@ -1,5 +1,11 @@
+const socket = io();
+
+
 let userlogin;
 let userpassword;
+
+
+
 
 const setup = () => {
   userlogin = document.getElementById('userlogin');

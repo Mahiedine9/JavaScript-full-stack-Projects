@@ -9,10 +9,22 @@ module.exports.showsList = (_, res) =>
 
 module.exports.newShow = async (req, res, _) => {
     const newShowData = { ...req.body };
-    const createdShow = await shows.create(newShowData);
-    res.status(200).json(createdShow);
+    const existingShow = await shows.findOne({ description: newShowData.description });
 
+    if (existingShow) {
+        return res.status(400).json({ message: "Un spectacle avec cette description existe déjà." });
+    }
+
+    try {
+        const createdShow = await shows.create(newShowData);
+        res.status(200).json(createdShow);
+    } catch (error) {
+        console.error("Erreur lors de la création du spectacle :", error);
+        res.status(500).json({ message: "Erreur lors de la création du spectacle" });
+    }
 }
+        
+
 
 module.exports.deleteShow = async (req, res) => {
     const showId = req.params.showId;

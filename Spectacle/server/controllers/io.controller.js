@@ -10,7 +10,13 @@ class IoController {
     setupListeners() {
         this.#io.on('connection', (socket) => {
             console.log(`User connecté avec l'id : ${socket.id}`);
-            this.#users.set(socket.id);
+            this.#users.set(socket.id); 
+        });
+        this.#io.on('buy', (showId) => {
+            this.#io.emit('showBought', showId);        
+        });
+        this.#io.on('deleteShow', (showId) => {
+            this.#io.emit('showDeleted', showId);
             
         });
     }
