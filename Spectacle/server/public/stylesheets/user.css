@@ -1,72 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+#user {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+  background-color: #575353; 
+  border-bottom: 1px solid #ccc; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  z-index: 100; 
+}
+
+
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9; /* Fond clair */
-  color: #333; 
+  background: linear-gradient(to right bottom, #ffb88e, #ea5753);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 #main-container {
   display: flex;
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff; /* Fond blanc */
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
-}
-
-#tickets {
-  flex: 1; /* Utilisation de tout l'espace disponible */
-  margin-right: 20px; /* Espacement entre les sections */
-  background-color: #f0f0f0; /* Fond gris clair */
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
-  transition: background-color 0.3s ease;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right bottom, rgba(255, 184, 142, 0.44), rgba(255, 255, 255, 0.5));
+  border-radius: 3rem;
+  padding: 3rem;
+  box-shadow: 0 7px 2rem #ea5753;
 }
 
 #spectacles {
-  flex: 1; /* Utilisation de tout l'espace disponible */
-  background-color: #f9e3b4; /* Fond jaune pâle */
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
-  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  counter-reset: my-counter;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-th {
-  background-color: #333;
+#spectacles > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(234, 87, 83, 0.7);
   color: #fff;
+  padding: 1.1rem 1.5rem;
+  border-radius: 3rem;
+  counter-increment: my-counter;
 }
+
+#spectacles > div::before {
+  content: counter(my-counter) ". ";
+}
+
 
 #logout {
-  background-color: #da0202; /* Bouton rouge */
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  font-size: 25px;
+  width: 8em;
+  height: 2em;
+  text-align: center;
+  line-height: 2em;
+  font-family: sans-serif;
+  text-transform: capitalize;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  transition: 0.5s;
+  margin: 0.8em;
+  background-color: lightyellow;
 }
+
+#logout::before,
+#logout::after {
+  content: '';
+  position: absolute;
+  width: 0.6em;
+  height: 0.6em;
+  background-color: gainsboro;
+  border-radius: 50%;
+  transition: 0.5s cubic-bezier(0.5, -0.5, 0.25, 1.5);
+  top: calc(50% - 0.6em / 2);
+}
+
+#logout::before {left: 0; z-index: -1;}
+#logout::after {right: 0; z-index: -2;}
 
 #logout:hover {
-  background-color: #c82333; /* Survol du bouton rouge */
+  color: white;
 }
 
+#logout:hover::before,
+#logout:hover::after {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background-color: rgb(209, 40, 10);
+}
 
+#logout:hover::before {
+  top: 0;
+}
 
-
+#logout:hover::after {
+  right: -0.4em;
+  filter: brightness(0.8);
+}
