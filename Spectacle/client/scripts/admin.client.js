@@ -89,6 +89,8 @@ const createShow = async () => {
 };
 
 
+
+
 const deleteShow = async (showId) => {
   try {
     const requestOptions = {
@@ -98,6 +100,7 @@ const deleteShow = async (showId) => {
 
     if (response.ok) {
       getShows();
+      socket.emit('deleteShow', response.description);
     } else {
       const errorData = await response.json();
       displayMessage(`Erreur : ${errorData.message}`);
@@ -106,7 +109,7 @@ const deleteShow = async (showId) => {
     console.error(`Erreur : ${error.message}`);
   }
 
-  socket.emit('deleteShow', showId);
+  
 };
 
 

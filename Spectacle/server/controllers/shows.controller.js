@@ -34,7 +34,7 @@ module.exports.deleteShow = async (req, res) => {
         if (!deletedShow) {
             return res.status(404).json({ message: "Spectacle non trouvé" });
         }
-        res.status(200).json({ message: "Spectacle supprimé avec succès" });
+        res.status(200).json({ message: "Spectacle supprimé avec succès", description: deletedShow.description});
     } catch (error) {
         console.error("Erreur lors de la suppression du spectacle :", error);
         res.status(500).json({ message: "Erreur lors de la suppression du spectacle" });
