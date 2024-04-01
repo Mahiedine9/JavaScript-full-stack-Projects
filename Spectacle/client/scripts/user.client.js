@@ -147,6 +147,8 @@ const getShows = async () => {
   const list = document.getElementById('spectacle-list');
   list.textContent = '';
   shows.forEach(show => list.appendChild(buildShow(show)));
+
+  return shows;
 };
 
 const buildShow = show => {
