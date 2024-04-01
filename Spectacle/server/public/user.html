@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/stylesheets/user.css"/>
   <script src="../javascripts/user-bundle.js" defer="true"></script>
   <script src="./socket.io/socket.io.js"></script>
+  <script defer src="javascripts/user-bundle.js"></script>
 <script defer src="javascripts/user-bundle.js"></script></head>
 
 <body>
@@ -13,22 +14,24 @@
   <div id="user">
     <h1></h1>
   </div>
+
+  
+
+  <div id="spectacles">
+    <h2>Spectacles disponibles</h2>
+    <div id="spectacle-list" class="container"></div>
+  </div>
     
 
   <div id="tickets">
     <h2>Tickets achetés</h2>
     <table id="ticket-list"></table>
-    
   </div>
 
   
-  <div id="spectacles">
-    <h2>Spectacles disponibles</h2>
-    <table id="spectacle-list"></table>
-      
-  </div>
-
   
+
+  <div id="message-container"></div>
   <div id="controls">
     <button id="logout">Déconnexion</button>
   </div>

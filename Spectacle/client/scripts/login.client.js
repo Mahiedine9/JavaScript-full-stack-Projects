@@ -5,8 +5,6 @@ let userlogin;
 let userpassword;
 
 
-
-
 const setup = () => {
   userlogin = document.getElementById('userlogin');
   userpassword = document.getElementById('userpassword');

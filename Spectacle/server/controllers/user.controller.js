@@ -2,6 +2,7 @@ const User = require('../models/user.model').model;
 const Shows = require('../models/shows.model').model;
 const Ticket = require('../models/user.model').ticketModel;
 
+
 module.exports.home = (_,res) => res.redirect('/user.html');
 
 module.exports.me =
@@ -47,7 +48,7 @@ module.exports.removeTicket = async (req, res) => {
     
     res.status(200).json({ message: "Ticket supprimé avec succès" });
 
-    
+
     show.places++;
     await show.save();
     

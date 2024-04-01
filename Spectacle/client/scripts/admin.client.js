@@ -22,40 +22,38 @@ const getShows = async () => {
 };
 
 
-
-const buildShow = show => {
-  const elem = document.createElement('div');
+const buildShow2 = show => {
+  const elem = document.createElement('tr');
   elem.className = 'show';
-  elem.id = `show-${show._id}`;
+  elem.appendChild(buildTD(show.description, 'description'));
+  elem.appendChild(buildTD(show.places, 'seats'));
 
-  const description = document.createElement('div');
-  description.className = 'description';
-  description.appendChild(buildTD(show.description, 'description'));
-  elem.appendChild(description);
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Supprimer';
+  deleteButton.className = 'delete-button';
+  deleteButton.addEventListener('click', () => deleteShow(show._id)); 
+  elem.appendChild(deleteButton);
 
-  const seats = document.createElement('div');
-  seats.className = 'seats';
-  const seatsData = buildTD(show.places, 'seats');
-  seats.appendChild(seatsData);
-  description.appendChild(seats);
-
-  const buyButton = document.createElement('button');
-  buyButton.textContent = 'buy +1';
-  buyButton.className = 'buy-button';
-  buyButton.addEventListener('click', async () => {
-      try {
-          await addTicket(show._id);
-          const updatedShow = await getShow(show._id);
-          seatsData.textContent = updatedShow.places.toString();
-      } catch (error) {
-          console.error(error);
-      }
-  });
-
-  description.appendChild(buyButton);
 
   return elem;
-};
+}
+
+
+const buildShow = show => {
+  const elem = document.createElement('tr');
+  elem.className = 'show';
+  elem.id = `show-${show._id}`;
+  elem.appendChild(buildTD(show.description, 'description'));
+  elem.appendChild(buildTD(show.places, 'seats'));
+
+  const deleteButton = document.createElement('button');
+  deleteButton.textContent = 'Supprimer';
+  deleteButton.className = 'delete-button';
+  deleteButton.addEventListener('click', () => deleteShow(show._id)); 
+  elem.appendChild(deleteButton);
+
+  return elem;
+}
 
 const buildTD = (content, className) => {
   const TDelement = document.createElement('td');
@@ -81,7 +79,6 @@ const createShow = async () => {
       getShows();
     } else {
       const errorData = await response.json();
-      displayMessage(`Erreur : ${errorData.message}`);
     }
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
@@ -100,6 +97,7 @@ const deleteShow = async (showId) => {
 
     if (response.ok) {
       getShows();
+      console.log(response.description);
       socket.emit('deleteShow', response.description);
     } else {
       const errorData = await response.json();

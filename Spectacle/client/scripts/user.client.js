@@ -3,7 +3,7 @@ const socket = io();
 
 
 const setup = async () => {
-  socket.on('showDeleted', (showId) => deleteTicket(showId));
+  socket.on('showDeleted', (desc) => deleteTicketByDescription(desc));
   try {
     const userData = await getUser();
     displayUser(userData);
@@ -211,18 +211,22 @@ function BuyTicket(showId){
   socket.emit('buy', showId);
 }
 
-const deleteTicket = async (showId) => {
+
+const deleteTicketByDescription = async (description) => {
   try {
     const user = await getUser();
-    const tickets = await getTickets();
-    const ticket = tickets.find(ticket => ticket.showId === showId);
-    if (!ticket) return; 
-    await removeTicket(ticket._id);
-    await displayTickets(); 
+    const allTickets = await getTickets();
+    const tickets = allTickets.filter(ticket => ticket.description === description);
+    for (const ticket of tickets) {
+      await removeTicket(ticket._id);
+    }
+    await displayTickets();
   } catch (error) {
     console.error(`Erreur : ${error.message}`);
   }
 };
+
+
 
 
 
