@@ -14,6 +14,20 @@ const setup = async () => {
   }
 };
 
+const displayMessage = (message) => {
+  const messageElement = document.createElement('div');
+  messageElement.textContent = message;
+  messageElement.className = 'error-message'; 
+
+  const messageContainer = document.getElementById('message-container');
+  messageContainer.appendChild(messageElement);
+
+  setTimeout(() => {
+    messageContainer.removeChild(messageElement);
+  }, 5000); 
+};
+
+
 
 
 const getUser = async () => {
@@ -37,11 +51,37 @@ const addTicket = async (showId) => {
   const user = await getUser();
   const ticketResponse = await fetch(`/user/takeTicket/${showId}/${user.id}`, { method: 'POST' });
   if (!ticketResponse.ok) {
-    throw new Error('Erreur lors de la prise de ticket');
-  }
-  BuyTicket(showId);
-  displayTickets();
+    displayMessage('il reste plus de place pour ce spectacle');
+    
+  } else{
+    BuyTicket(showId);
+    updateShow(showId);
+    displayTickets();
+  }  
 };
+
+const updateShow = async (showId) => {
+  const show = await getShow(showId);
+  const showElem = document.getElementById(`show-${showId}`);
+  const seatsElem = showElem.querySelector('.seats');
+  seatsElem.textContent = show.places.toString();
+}; 
+
+  
+
+
+const getShow = async (showId) => {
+  const response = await fetch(`/shows/${showId}`);
+  if (!response.ok) {
+    throw new Error('Erreur lors de la récupération du spectacle');
+  }
+  return await response.json();
+}; 
+
+
+  
+  
+
 
 const removeTicket = async (ticketId) => {
   const user = await getUser();
@@ -94,23 +134,34 @@ const getShows = async () => {
   shows.forEach(show => list.appendChild(buildShow(show)));
 };
 
-const buildShow =  show => {
-  const elem = document.createElement('tr');
+const buildShow = show => {
+  const elem = document.createElement('div');
   elem.className = 'show';
-  elem.appendChild(buildTD(show.description, 'description'));
-  elem.appendChild(buildTD(show.places, 'seats'));
+  elem.id = `show-${show._id}`; 
+
+  const description = document.createElement('div');
+  description.className = 'description';
+  description.appendChild(buildTD(show.description, 'description'));
+  elem.appendChild(description);
+
+  const seats = document.createElement('div');
+  seats.className = 'seats';
+  seats.appendChild(buildTD(show.places, 'seats'));
+  description.appendChild(seats);
 
   const buyButton = document.createElement('button');
   buyButton.textContent = 'buy +1';
   buyButton.className = 'buy-button';
   buyButton.addEventListener('click', () => {
-    addTicket(show._id);
+      addTicket(show._id);
   });
 
-  elem.appendChild(buyButton);
+  description.appendChild(buyButton);
 
   return elem;
 };
+
+
 
 const buildTD = (content, className) => {
   const TDelement = document.createElement('td');
