@@ -41,6 +41,21 @@ module.exports.deleteShow = async (req, res) => {
     }
 };
 
+module.exports.show = async (req, res) => {
+    const showId = req.params.showId;
+
+    try {
+        const show = await shows.findById(showId);
+        if (!show) {
+            return res.status(404).json({ message: "Spectacle non trouvé" });
+        }
+        res.status(200).json(show);
+    } catch (error) {
+        console.error("Erreur lors de la récupération du spectacle :", error);
+        res.status(500).json({ message: "Erreur lors de la récupération du spectacle" });
+    }
+}
+
 
 
 
