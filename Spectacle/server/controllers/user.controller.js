@@ -68,11 +68,13 @@ module.exports.takeTicket = async (req, res) => {
       return res.status(404).json({ message: "Spectacle non trouvé" });
     }
 
-    if (show.places <= 0) {
+    if (show.places == 0) {
       return res.status(400).json({ message: "Plus de places disponibles pour ce spectacle" });
-    }
+    } else{
+      show.places--;
+    } 
 
-    show.places--;
+    
 
     const newTicket = new Ticket({ description: show.description });
 

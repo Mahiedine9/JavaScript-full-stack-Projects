@@ -24,16 +24,35 @@ const getShows = async () => {
 
 
 const buildShow = show => {
-  const elem = document.createElement('tr');
+  const elem = document.createElement('div');
   elem.className = 'show';
-  elem.appendChild(buildTD(show.description, 'description'));
-  elem.appendChild(buildTD(show.places, 'seats'));
+  elem.id = `show-${show._id}`;
 
-  const deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Supprimer';
-  deleteButton.className = 'delete-button';
-  deleteButton.addEventListener('click', () => deleteShow(show._id));
-  elem.appendChild(deleteButton);
+  const description = document.createElement('div');
+  description.className = 'description';
+  description.appendChild(buildTD(show.description, 'description'));
+  elem.appendChild(description);
+
+  const seats = document.createElement('div');
+  seats.className = 'seats';
+  const seatsData = buildTD(show.places, 'seats');
+  seats.appendChild(seatsData);
+  description.appendChild(seats);
+
+  const buyButton = document.createElement('button');
+  buyButton.textContent = 'buy +1';
+  buyButton.className = 'buy-button';
+  buyButton.addEventListener('click', async () => {
+      try {
+          await addTicket(show._id);
+          const updatedShow = await getShow(show._id);
+          seatsData.textContent = updatedShow.places.toString();
+      } catch (error) {
+          console.error(error);
+      }
+  });
+
+  description.appendChild(buyButton);
 
   return elem;
 };
@@ -111,9 +130,8 @@ logoutButton.addEventListener('click', logout);
 
 
 
-
 const updateShowAvailability = (showId) => {
-  const showElement = document.getElementById(showId);
+  const showElement = document.getElementById(show-showId);
   if (showElement) {
     fetch(`/shows/${showId}`)
       .then(response => response.json())
