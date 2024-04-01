@@ -30,6 +30,10 @@ module.exports.update =
 module.exports.removeTicket = async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);
+    const show = await Shows.findById(req.params.showId);
+    if (!show) {
+      return res.status(404).json({ message: "Spectacle non trouvé" });
+    }
 
     if (!user) {
       return res.status(404).json({ message: "Utilisateur non trouvé" });
@@ -40,13 +44,20 @@ module.exports.removeTicket = async (req, res) => {
     await user.save();
 
     await Ticket.findByIdAndDelete(req.params.ticketId);
-
+    
     res.status(200).json({ message: "Ticket supprimé avec succès" });
+
+    
+    show.places++;
+    await show.save();
+    
 
   } catch (error) {
     console.error("Erreur lors de la suppression du ticket :", error);
     res.status(500).json({ message: "Une erreur s'est produite lors de la suppression du ticket" });
-  } 
+  }
+  
+  
 } 
 
 
