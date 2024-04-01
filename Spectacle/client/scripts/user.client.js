@@ -83,14 +83,29 @@ const getShow = async (showId) => {
   
 
 
-const removeTicket = async (ticketId) => {
+const removeTicket = async (ticket) => {
   const user = await getUser();
-  const response = await fetch(`/user/removeTicket/${ticketId}/${user.id}`, { method: 'DELETE' });
+  const shows = await getShows();
+  const showId = shows.find(show => show.description === ticket.description)._id;
+  const response = await fetch(`/user/removeTicket/${ticket._id}/${user.id}/${showId}`, { method: 'DELETE' });
   if (!response.ok) {
     throw new Error('Erreur lors de la suppression du ticket');
   }
+  updateShow(showId);
   displayTickets();
 };
+
+const getShowIdByDescription = async (description) => {
+  const shows = await getShows();
+  for (const show of shows) {
+    if (show.description === description) {
+      return show._id;
+    }
+  }
+  return null;
+};
+
+
 
 const displayTickets = async () => {
   const ticketList = document.getElementById('ticket-list');
@@ -111,8 +126,8 @@ const displayTickets = async () => {
       const deleteButton = document.createElement('button');
       deleteButton.textContent = 'Supprimer';
       deleteButton.addEventListener('click', async () => {
-        const ticketId = tickets.find(ticket => ticket.description === description)._id;
-        await removeTicket(ticketId);
+        const ticket = tickets.find(ticket => ticket.description === description);
+        await removeTicket(ticket);
       });
 
       ticketElem.appendChild(deleteButton);
