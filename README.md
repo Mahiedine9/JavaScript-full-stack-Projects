@@ -119,7 +119,10 @@ En tant q'admin vous avez la possibilité d'ajouter un des spectacles, ainsi que
 3. **Ajout de réservations :** Pour réserver des tickets pour un spectacle, cliquez sur le bouton "Réserver" à côté du spectacle choisi. Vous avez la possibilité d'acheter des ticktes sous réserve des places 
 disponible. 
 
-4. **Visualisation et suppression des réservations :** Vous pouvez visualiser vos réservations sur la page d'accueil après connexion. Chaque réservation est répertoriée avec les détails du spectacle correspondant. Pour supprimer une réservation, cliquez sur le bouton "Supprimer" à côté de la réservation, Cela supprime une réservation, donc si vous voulez supprimer plusieurs réservations d'un méme spectacle il faut cliquer plusieurs fois sur le bouton.
+
+4. **Visualisation et suppression des réservations :** Vous pouvez visualiser vos réservations sur la page d'accueil après connexion. Chaque réservation est répertoriée avec les détails du spectacle correspondant. Pour supprimer une réservation, cliquez sur le bouton "Supprimer" à côté de la réservation, Cela supprime une réservation, donc si vous voulez supprimer plusieurs réservations d'un méme spectacle il faut cliquer plusieurs fois sur le bouton. 
+Si l'admin supprime un spectacle les tickets des utilisateur correspondant à au spectacle seront annulées automatiquement.
+
 
 
 
