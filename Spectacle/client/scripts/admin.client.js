@@ -1,7 +1,10 @@
 const socket = io();
 
+socket.emit('adminConnected');
+
 
 const setup = () => {
+
   
   socket.on('showBought', (showId) => {
     updateShowAvailability(showId);
@@ -22,22 +25,6 @@ const getShows = async () => {
 };
 
 
-const buildShow2 = show => {
-  const elem = document.createElement('tr');
-  elem.className = 'show';
-  elem.appendChild(buildTD(show.description, 'description'));
-  elem.appendChild(buildTD(show.places, 'seats'));
-
-  const deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Supprimer';
-  deleteButton.className = 'delete-button';
-  deleteButton.addEventListener('click', () => deleteShow(show._id)); 
-  elem.appendChild(deleteButton);
-
-
-  return elem;
-}
-
 
 const buildShow = show => {
   const elem = document.createElement('tr');
@@ -49,7 +36,11 @@ const buildShow = show => {
   const deleteButton = document.createElement('button');
   deleteButton.textContent = 'Supprimer';
   deleteButton.className = 'delete-button';
-  deleteButton.addEventListener('click', () => deleteShow(show._id)); 
+  deleteButton.addEventListener('click', () => {
+    socket.emit('deleteShow', show.description);
+    deleteShow(show._id); 
+  } );
+
   elem.appendChild(deleteButton);
 
   return elem;
@@ -98,7 +89,6 @@ const deleteShow = async (showId) => {
     if (response.ok) {
       getShows();
       console.log(response.description);
-      socket.emit('deleteShow', response.description);
     } else {
       const errorData = await response.json();
       displayMessage(`Erreur : ${errorData.message}`);

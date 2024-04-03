@@ -16,20 +16,40 @@ class IoController {
     }
 
     setupListeners() {
+        
         this.#io.on('connection', (socket) => {
+            this.connection(socket);
             console.log(`User connecté avec l'id : ${socket.id}`);
             this.#users.set(socket.id); 
         });
+        
+        
         this.#io.on('buy', (showId) => {
             this.#io.emit('showBought', showId);        
         });
-        this.#io.on('deleteShow', (desc) => {
+        
+    }
+
+    connection(socket) {
+        socket.on('userConnected', () => {
+            console.log('User connecté');
+            this.#users.set(socket.id);
+        });
+        socket.on('adminConnected', () => {
+            console.log('Admin connecté');
+            this.#users.set(socket.id);
+        });
+        socket.on('disconnect', () => {
+            console.log(`User déconnecté avec l'id : ${socket.id}`);
+            this.#users.delete(socket.id);
+        });
+        socket.on('deleteShow', (desc) => {
             console.log(`Le spectacle ${desc} a été supprimé`);
             this.#io.emit('showDeleted', desc);
             this.deleteTicket(desc);
-
         });
     }
+        
 
     async deleteTicket(description) {
         try {
