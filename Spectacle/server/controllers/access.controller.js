@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const jwtConfig = require('../config/jwt.config');
 
 
-const registerForm = (_,res) => res.redirect('/html/register.html');
+const registerForm = (_,res) => res.redirect('/register.html');
 /*
 * crée l'entrée correspondant à l'utilisateur à partir des informations fournies
 * le mot de passe est crypté avant d'être stocké en base
@@ -38,7 +38,7 @@ const register = async (req, res) => {
 */
 const loginForm = (_,res) =>  {
   const options = {                                          
-                 root : 'public/html',
+                 root : 'public2',
                  headers: {     
                     'Content-Type': 'text/html',
                     'x-timestamp': Date.now(),

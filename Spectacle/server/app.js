@@ -27,12 +27,18 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public2')));
+
+// routes middlewares
+app.use('/access', accessRouter);
+app.use('/admin.html', adminRouter);
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
-app.use('/access', accessRouter);
-app.use('/admin', adminRouter);
+app.use('/admin', adminRouter); 
 app.use('/shows', showsRouter);
 app.use('/socket.io', express.static(path.join(__dirname, 'node_modules/socket.io/client-dist')));
 

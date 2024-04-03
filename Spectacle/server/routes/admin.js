@@ -8,4 +8,5 @@ const adminController = require('../controllers/admin.controller');
 
 router.get('/', authMiddleware.validToken, adminMiddleware, adminController.adminPage);
 
+
 module.exports = router

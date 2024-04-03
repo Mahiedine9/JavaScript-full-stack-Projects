@@ -1,7 +1,5 @@
 const socket = io();
 
-
-
 const setup = async () => {
   socket.on('showDeleted', (desc) => deleteTicketByDescription(desc));
   try {
@@ -194,7 +192,7 @@ const displayUser = (userData) => {
 const logout = async () => {
   const response = await fetch(`/access/logout`, { method: 'GET' });
   if (response.ok) {
-    window.location.href = '/';
+    window.location.href = '/access/login';
   }
 };
 

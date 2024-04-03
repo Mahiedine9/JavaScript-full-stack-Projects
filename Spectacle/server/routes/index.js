@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
+const authMiddleware = require('../middlewares/authentication.middleware');
+
+
+
 const indexController = require('../controllers/index.controller')
 
-/* GET home page. */
-router.get('/', indexController.login);
-
+router.get('/', authMiddleware.validToken , indexController.login);
+router.get('/admin.html', authMiddleware.validToken , indexController.login)
 
 
 

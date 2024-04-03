@@ -2,7 +2,7 @@ const User = require('../models/user.model').model;
 
 
 
-module.exports.adminPage = async (req, res) => {
+module.exports.adminPage2 = async (req, res) => {
     try {
       res.redirect('/admin.html');
     } catch (error) {
@@ -10,7 +10,20 @@ module.exports.adminPage = async (req, res) => {
       res.status(500).json({ message: 'Erreur serveur lors de l\'accès à la page d\'administration' });
     }
     
-  };
+};
+
+
+module.exports.adminPage =
+   (_,res) =>  {
+      const options = {
+                     root: 'public',
+                     headers: {
+                       'x-timestamp': Date.now(),
+                       'x-sent': true
+                     }
+                   };
+      res.sendFile('admin.html', options);
+} 
 
 
 

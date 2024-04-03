@@ -3,7 +3,7 @@
 module.exports.login =
    (_,res) =>  {
       const options = {                                          
-                     root : 'public/html',
+                     root : 'public2',
                      headers: {     
                         'Content-Type': 'text/html',
                         'x-timestamp': Date.now(),

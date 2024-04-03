@@ -11,8 +11,8 @@ module.exports = {
   entry: {                         
     'admin': path.resolve(__dirname, 'scripts', 'admin.client.js'),
     'user' : path.resolve(__dirname, 'scripts', 'user.client.js'),
-    'login': path.resolve(__dirname, 'scripts', 'login.client.js'),
-    'register': path.resolve(__dirname, 'scripts', 'register.client.js')
+    //'login': path.resolve(__dirname, 'scripts', 'login.client.js'),
+    //'register': path.resolve(__dirname, 'scripts', 'register.client.js')
   },
 
   output: {

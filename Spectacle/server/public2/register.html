@@ -3,15 +3,20 @@
 <head>
   <meta charset="UTF-8"/>
   <title>login/register</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/login.css"/>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/register.css"/>
   <script src="../socket.io/socket.io.js"></script>
-  <script src="./javascripts/login-bundle.js" defer="true"></script>
+  <script src="/javascripts/register.client.js" defer="true"/></script>
 </head>
 
 <body>
-  <h1>page d'accueil</h1>
+  <h1>Inscription</h1>
 
   <div id="userdata">
+    <div>
+      <label for="username">Nom
+        <input type="text" placeholder="nom" value="" id="username"/>
+      </label>
+    </div>
     <div>
       <label for="userlogin">Login
         <input type="text" placeholder="login" value="" id="userlogin"/>
@@ -24,13 +29,14 @@
     </div>
   </div>
   <div id="controls">
-    <button id="login">Login</button>
+    <button id="register">Register</button> <button id="adminregister">Register as admin</button>
   </div>
   <div>
-    ou <a href="/access/register">créez un compte</a>
+    <a href="/access/login">vous avez déjà un compte ?</a>
   </div>
 
   <div id="problem"></div>
+
 </body>
 
 </html>
