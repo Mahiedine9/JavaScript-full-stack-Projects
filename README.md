@@ -111,14 +111,18 @@ application de gestion des spectacles ! Cette application vous permet de consult
 
 ### Utilisation
 
-1. **Authentification :** Lorsque vous accédez à l'application, vous serez accueilli par une page de connexion. Connectez-vous en utilisant vos identifiants.
+1. **Authentification :** Lorsque vous accédez à l'application, vous serez accueilli par une page de connexion. Connectez-vous en utilisant vos identifiants, impossible d'accéder a la page de admin si vous n'étes pas autoriser (vous étes pas admin) . 
 
 2. **Affichage des spectacles :** Après connexion, la liste des spectacles disponibles sera affichée. Vous pouvez consulter les détails de chaque spectacle et choisir celui qui vous intéresse.
+En tant q'admin vous avez la possibilité d'ajouter un des spectacles, ainsi que de les supprimer.  
 
-3. **Ajout de réservations :** Pour réserver des tickets pour un spectacle, cliquez sur le bouton "Réserver" à côté du spectacle choisi.
+3. **Ajout de réservations :** Pour réserver des tickets pour un spectacle, cliquez sur le bouton "Réserver" à côté du spectacle choisi. Vous avez la possibilité d'acheter des ticktes sous réserve des places 
+disponible. 
+
+4. **Visualisation et suppression des réservations :** Vous pouvez visualiser vos réservations sur la page d'accueil après connexion. Chaque réservation est répertoriée avec les détails du spectacle correspondant. Pour supprimer une réservation, cliquez sur le bouton "Supprimer" à côté de la réservation, Cela supprime une réservation, donc si vous voulez supprimer plusieurs réservations d'un méme spectacle il faut cliquer plusieurs fois sur le bouton.
 
 
-4. **Visualisation et suppression des réservations :** Vous pouvez visualiser vos réservations sur la page d'accueil après connexion. Chaque réservation est répertoriée avec les détails du spectacle correspondant. Pour supprimer une réservation, cliquez sur le bouton "Supprimer" à côté de la réservation.
+
 
 ### Technologies Utilisées
 
