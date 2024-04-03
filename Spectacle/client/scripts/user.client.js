@@ -1,7 +1,10 @@
 const socket = io();
 
+socket.emit('userConnected');
+
+
 const setup = async () => {
-  socket.on('showDeleted', (desc) => deleteTicketByDescription(desc));
+  //socket.on('showDeleted', (desc) => deleteTicketByDescription(desc));
   try {
     const userData = await getUser();
     displayUser(userData);

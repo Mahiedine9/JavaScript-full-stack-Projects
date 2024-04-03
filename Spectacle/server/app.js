@@ -34,13 +34,14 @@ app.use('/access', accessRouter);
 app.use('/admin.html', adminRouter);
 
 
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/admin', adminRouter); 
 app.use('/shows', showsRouter);
-app.use('/socket.io', express.static(path.join(__dirname, 'node_modules/socket.io/client-dist')));
+//app.use('/socket.io', express.static(path.join(__dirname, 'node_modules/socket.io/client-dist')));
 
 
 
